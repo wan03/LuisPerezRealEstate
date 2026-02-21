@@ -1,0 +1,51 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: SJ
+        - generic [ref=e7]:
+          - paragraph [ref=e8]: Sarah Jenkins
+          - paragraph [ref=e9]: agent portal
+      - navigation [ref=e10]:
+        - link "Clients" [ref=e11] [cursor=pointer]:
+          - /url: /portal/clients
+          - img [ref=e12]
+          - text: Clients
+        - link "Chats" [ref=e17] [cursor=pointer]:
+          - /url: /portal/chats
+          - img [ref=e18]
+          - text: Chats
+        - link "Analytics" [ref=e20] [cursor=pointer]:
+          - /url: /portal/analytics
+          - img [ref=e21]
+          - text: Analytics
+        - link "Email Templates" [active] [ref=e23] [cursor=pointer]:
+          - /url: /portal/templates
+          - img [ref=e24]
+          - text: Email Templates
+      - button "Sign Out" [ref=e28]:
+        - img [ref=e29]
+        - text: Sign Out
+    - generic [ref=e33]:
+      - img [ref=e34]
+      - heading "Failed to load templates" [level=2] [ref=e36]
+      - paragraph [ref=e37]: Could not find the table 'public.email_templates' in the schema cache
+      - button "Try Again" [ref=e38]:
+        - img [ref=e39]
+        - text: Try Again
+  - generic [ref=e48] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e49]:
+      - img [ref=e50]
+    - generic [ref=e53]:
+      - button "Open issues overlay" [ref=e54]:
+        - generic [ref=e55]:
+          - generic [ref=e56]: "0"
+          - generic [ref=e57]: "1"
+        - generic [ref=e58]: Issue
+      - button "Collapse issues badge" [ref=e59]:
+        - img [ref=e60]
+  - alert [ref=e62]
+```

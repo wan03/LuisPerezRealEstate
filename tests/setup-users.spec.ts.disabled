@@ -1,0 +1,23 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('Setup Test Users', () => {
+    const users = [
+        { name: 'Luis Perez', email: 'luis@lprealestate.com' },
+        { name: 'Sarah Jenkins', email: 'sarah@lprealestate.com' },
+        { name: 'Michael Chen', email: 'michael.chen@gmail.com' },
+        { name: 'Robert Thompson', email: 'robert.t@gmail.com' }
+    ];
+
+    for (const user of users) {
+        test(`Sign up ${user.name}`, async ({ page }) => {
+            await page.goto('/signup');
+            await page.fill('input[placeholder="John Doe"]', user.name);
+            await page.fill('input[type="email"]', user.email);
+            await page.fill('input[type="password"]', 'DemoPassword123!');
+            await page.click('button[type="submit"]');
+
+            // Should show success or "Access Requested"
+            await expect(page.locator('text=Access Requested')).toBeVisible({ timeout: 15000 });
+        });
+    }
+});
