@@ -50,7 +50,6 @@ const UI_MILESTONES = [
 ];
 
 export default function CommandCenter({ role = 'client', clientId }: { role?: 'client' | 'agent' | 'loan_officer' | 'admin', clientId?: string }) {
-    const supabase = createClient();
     const [milestones, setMilestones] = useState<Milestone[]>([]);
     const [loading, setLoading] = useState(true);
     const [transactionId, setTransactionId] = useState<string | null>(null);
@@ -60,6 +59,8 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
         if (!clientId) return;
         setLoading(true);
         setError(false);
+
+        const supabase = createClient();
 
         // Fetch the active transaction for this client
         const { data } = await supabase
@@ -125,6 +126,8 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
             if (mIndex === newStatusIndex) return { ...m, status: 'active' };
             return { ...m, status: 'pending' };
         }));
+
+        const supabase = createClient();
 
         // Update database
         const { error } = await supabase

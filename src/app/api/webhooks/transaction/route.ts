@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
+import crypto from 'crypto';
 
 // Initialize a Supabase admin client to bypass RLS for webhook processing
+// Note: Requires SUPABASE_SERVICE_ROLE_KEY to be set in environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -13,11 +15,14 @@ export async function POST(req: Request) {
         // Validate Webhook Secret if set (recommended for production)
         const secret = process.env.SUPABASE_WEBHOOK_SECRET;
         if (secret) {
-            const signature = req.headers.get('x-supabase-signature');
-            // Signature verification logic would go here if using a strict webhook validation
-            // But for this MVP, we verify if the secret matches via query param or header auth
             const authHeader = req.headers.get('authorization');
-            if (authHeader !== `Bearer ${secret}`) {
+            const expectedAuth = `Bearer ${secret}`;
+
+            // Use constant-time comparison to prevent timing attacks
+            const a = Buffer.from(authHeader || '');
+            const b = Buffer.from(expectedAuth);
+
+            if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
                 return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
             }
         }

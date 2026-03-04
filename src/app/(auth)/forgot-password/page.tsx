@@ -2,66 +2,53 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Shield, Mail, Lock, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { Shield, Mail, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
     const supabase = createClient();
-    const router = useRouter();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleReset = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
 
-        const { data, error: authError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${window.location.origin}/reset-password`,
         });
 
-        if (authError) {
-            setError(authError.message);
+        if (resetError) {
+            setError(resetError.message);
             setLoading(false);
             return;
         }
 
-        // Successfully logged in, now determine where to redirect based on profile
-        console.log('Login successful, fetching profile for:', data.user.id);
-        const { data: profile, error: profileError } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', data.user.id)
-            .single();
-
-        if (profileError) {
-            console.error('Error fetching profile:', profileError);
-        }
-
-        console.log('Profile fetched:', profile);
-
-        if (profile) {
-            if (profile.role === 'admin') {
-                console.log('Redirecting to /admin');
-                router.push('/admin');
-            }
-            else if (profile.role === 'agent' || profile.role === 'loan_officer') {
-                console.log('Redirecting to /portal');
-                router.push('/portal');
-            }
-            else {
-                console.log('Redirecting to /dashboard');
-                router.push('/dashboard');
-            }
-        } else {
-            console.log('No profile found, redirecting to /');
-            router.push('/');
-        }
+        setSuccess(true);
+        setLoading(false);
     };
+
+    if (success) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+                <div className="w-full max-w-md bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[40px] p-10 text-center space-y-6">
+                    <div className="inline-flex items-center justify-center p-4 bg-indigo-500 rounded-full shadow-xl shadow-indigo-500/20 mb-4">
+                        <CheckCircle2 className="text-white" size={48} />
+                    </div>
+                    <h2 className="text-3xl font-black text-white italic tracking-tighter uppercase">Check Your Email</h2>
+                    <p className="text-slate-400 font-medium leading-relaxed px-4">
+                        We&apos;ve sent a password reset link to <span className="text-indigo-400">{email}</span>. Please click the link to choose a new password.
+                    </p>
+                    <Link href="/login" className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl py-4 font-black text-xs uppercase tracking-widest transition-all">
+                        Return to Login
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
@@ -77,13 +64,12 @@ export default function LoginPage() {
                     <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-2xl shadow-xl shadow-indigo-500/20 mb-4 transform hover:rotate-12 transition-transform">
                         <Shield className="text-white" size={32} />
                     </div>
-                    <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase">Command Center</h1>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">Personal Secure Access</p>
+                    <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase">Reset Password</h1>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">Recover your Command Center access</p>
                 </div>
 
-                {/* Login Card */}
                 <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[40px] p-8 md:p-10 shadow-2xl">
-                    <form onSubmit={handleLogin} className="space-y-6">
+                    <form onSubmit={handleReset} className="space-y-6">
                         {error && (
                             <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl flex items-center gap-3 text-sm font-medium animate-shake">
                                 <AlertCircle size={18} />
@@ -106,26 +92,6 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center px-4">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Password</label>
-                                <Link href="/forgot-password" className="text-[10px] font-black uppercase tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors">
-                                    Forgot?
-                                </Link>
-                            </div>
-                            <div className="relative group">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors" size={18} />
-                                <input
-                                    required
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="••••••••"
-                                    className="w-full bg-white/[0.05] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
-                                />
-                            </div>
-                        </div>
-
                         <button
                             disabled={loading}
                             type="submit"
@@ -135,7 +101,7 @@ export default function LoginPage() {
                                 <Loader2 className="animate-spin" size={18} />
                             ) : (
                                 <>
-                                    Establish Secure Connection
+                                    Send Reset Link
                                     <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
                                 </>
                             )}
@@ -144,19 +110,12 @@ export default function LoginPage() {
 
                     <div className="mt-8 pt-8 border-t border-white/5 text-center">
                         <p className="text-slate-500 text-xs font-bold">
-                            Don&apos;t have an account?{' '}
-                            <Link href="/signup" className="text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-widest font-black text-[10px]">
-                                Apply for Access
+                            Remember your password?{' '}
+                            <Link href="/login" className="text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-widest font-black text-[10px]">
+                                Secure Login
                             </Link>
                         </p>
                     </div>
-                </div>
-
-                {/* Security Footer */}
-                <div className="mt-8 flex items-center justify-center gap-2 opacity-30 grayscale hover:grayscale-0 transition-all cursor-default">
-                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                    <span className="text-[8px] font-black uppercase tracking-widest text-white">SSL Encrypted Pipeline</span>
-                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
                 </div>
             </div>
         </div>

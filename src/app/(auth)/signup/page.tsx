@@ -16,6 +16,12 @@ export default function SignupPage() {
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
@@ -36,9 +42,6 @@ export default function SignupPage() {
         }
 
         if (data.user) {
-            // Note: In Supabase, usually a trigger handles profile creation.
-            // For this demo, let's assume we might need to manually insert if trigger isn't set.
-            // But we'll follow best practices and show success.
             setSuccess(true);
         }
     };

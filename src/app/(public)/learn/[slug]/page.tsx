@@ -1,3 +1,5 @@
+import DOMPurify from 'isomorphic-dompurify';
+
 import Link from 'next/link';
 import { ChevronLeft, Share2, Printer, Bookmark, Clock, ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -25,7 +27,7 @@ async function getArticle(slug: string) {
         .from('articles')
         .select('*')
         .eq('slug', slug)
-        .single(); // Supabase types might be inferred if generated types were available, but for now we rely on runtime or explicit cast if we had generated types. Since we don't, 'data' is any.
+        .single();
 
     if (error || !data) {
         return null;
@@ -38,6 +40,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     const article = await getArticle(slug);
 
     if (!article) notFound();
+
+    const sanitizedContent = DOMPurify.sanitize(article.content);
 
     return (
         <div className="bg-white min-h-screen pb-32 text-black">
@@ -112,24 +116,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </div>
 
                 {/* Content Section */}
-                <div className="prose prose-slate prose-xl max-w-none text-slate-700 font-medium leading-[1.8] text-black">
-                    {article.content.trim().split('\n\n').map((para, i) => {
-                        // Improved parser for basic md/html coming from RSS
-                        const cleanPara = para.replace(/<[^>]*>/g, "").trim();
-                        if (!cleanPara) return null;
-
-                        if (para.startsWith('# ')) {
-                            return <h1 key={i} className="text-4xl font-black text-slate-900 mt-16 mb-8 uppercase tracking-tighter italic leading-tight">{cleanPara.replace('# ', '')}</h1>;
-                        }
-                        if (para.startsWith('## ') || para.startsWith('#### ')) {
-                            return <h2 key={i} className="text-3xl font-black text-slate-900 mt-12 mb-6 uppercase tracking-tighter">{cleanPara.replace(/#/g, '').trim()}</h2>;
-                        }
-                        if (para.startsWith('1. ') || para.match(/^\d+\. /)) {
-                            return <div key={i} className="my-6 pl-8 border-l-2 border-indigo-100 italic font-black text-black">{cleanPara}</div>
-                        }
-                        return <p key={i} className="mb-8 text-slate-700">{cleanPara}</p>;
-                    })}
-                </div>
+                <div
+                    className="prose prose-slate prose-xl max-w-none text-slate-700 font-medium leading-[1.8] text-black prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-p:mb-8 prose-h2:text-3xl prose-h2:mt-12 prose-h3:text-2xl prose-h3:mt-8 prose-a:text-indigo-600 prose-img:rounded-[40px] prose-img:shadow-xl"
+                    dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+                />
 
                 {/* CTA */}
                 <div className="mt-20 p-12 bg-slate-50 rounded-[40px] border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-8 text-black">

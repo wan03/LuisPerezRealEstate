@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Shield, Users, FileText, Activity, UserPlus, Loader2, LogOut } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
+import { fetchSystemStats } from './actions';
 
 export default function AdminConsole() {
     const supabase = createClient();
@@ -13,37 +14,23 @@ export default function AdminConsole() {
     ]);
     const [loading, setLoading] = useState(true);
 
-    const fetchStats = useCallback(async () => {
+    const loadStats = useCallback(async () => {
         setLoading(true);
 
-        // Fetch Pipeline (Threads)
-        const { count: threadCount } = await supabase
-            .from('chat_threads')
-            .select('*', { count: 'exact', head: true });
-
-        // Fetch Clients
-        const { count: clientCount } = await supabase
-            .from('profiles')
-            .select('*', { count: 'exact', head: true })
-            .eq('role', 'client');
-
-        // Fetch Articles
-        const { count: articleCount } = await supabase
-            .from('articles')
-            .select('*', { count: 'exact', head: true });
+        const { threadCount, clientCount, articleCount } = await fetchSystemStats();
 
         setStats([
-            { label: 'Active Pipeline', value: threadCount?.toString() || '0', icon: <Activity size={20} /> },
-            { label: 'Total Clients', value: clientCount?.toString() || '0', icon: <Users size={20} /> },
-            { label: 'Knowledge Base', value: `${articleCount || 0} articles`, icon: <FileText size={20} /> },
+            { label: 'Active Pipeline', value: threadCount.toString(), icon: <Activity size={20} /> },
+            { label: 'Total Clients', value: clientCount.toString(), icon: <Users size={20} /> },
+            { label: 'Knowledge Base', value: `${articleCount} articles`, icon: <FileText size={20} /> },
         ]);
 
         setLoading(false);
     }, []);
 
     useEffect(() => {
-        void Promise.resolve().then(() => fetchStats());
-    }, [fetchStats]);
+        void Promise.resolve().then(() => loadStats());
+    }, [loadStats]);
 
     return (
         <div className="min-h-screen bg-slate-900 text-white p-8">

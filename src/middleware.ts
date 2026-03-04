@@ -58,10 +58,17 @@ export async function middleware(request: NextRequest) {
 
     // Protection logic
     const path = request.nextUrl.pathname;
+    const isAuthRoute = path.startsWith('/login') || path.startsWith('/signup');
+    const isProtectedRoute = path.startsWith('/admin') || path.startsWith('/portal') || path.startsWith('/dashboard');
 
     // 1. If user is logged in
     if (user) {
-        // Fetch role from profile
+        // If not accessing an auth or protected route, we don't need the role to navigate
+        if (!isAuthRoute && !isProtectedRoute) {
+            return response;
+        }
+
+        // Fetch role from profile only for routes that require routing decisions
         const { data: profile } = await supabase
             .from('profiles')
             .select('role')
@@ -71,7 +78,7 @@ export async function middleware(request: NextRequest) {
         const role = profile?.role;
 
         // If trying to access login/signup while logged in, redirect to correct portal
-        if (path.startsWith('/login') || path.startsWith('/signup')) {
+        if (isAuthRoute) {
             if (role === 'admin') return NextResponse.redirect(new URL('/admin', request.url));
             if (role === 'agent' || role === 'loan_officer') return NextResponse.redirect(new URL('/portal', request.url));
             return NextResponse.redirect(new URL('/dashboard', request.url));
@@ -86,8 +93,7 @@ export async function middleware(request: NextRequest) {
         }
     } else {
         // 2. If user is NOT logged in and tries to access protected routes
-        const protectedRoutes = ['/dashboard', '/portal', '/admin'];
-        if (protectedRoutes.some(route => path.startsWith(route))) {
+        if (isProtectedRoute) {
             return NextResponse.redirect(new URL('/login', request.url));
         }
     }
