@@ -1,0 +1,23 @@
+
+> luis-perez-real-estate@0.1.0 build
+> next build
+
+▲ Next.js 16.1.4 (Turbopack)
+- Environments: .env.local
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.7s
+  Running TypeScript ...
+Failed to compile.
+
+./supabase/functions/sync-rss/index.ts:2:30
+Type error: Cannot find module 'https://esm.sh/@supabase/supabase-js@2.39.7' or its corresponding type declarations.
+
+[0m [90m 1 |[39m [36mimport[39m [32m"jsr:@supabase/functions-js/edge-runtime.d.ts"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { createClient } [36mfrom[39m [32m"https://esm.sh/@supabase/supabase-js@2.39.7"[39m[33m;[39m
+ [90m   |[39m                              [31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [90m// RSS Parser for Deno[39m
+ [90m 5 |[39m [36mimport[39m { parseFeed } [36mfrom[39m [32m"https://deno.land/x/rss@1.0.0/mod.ts"[39m[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

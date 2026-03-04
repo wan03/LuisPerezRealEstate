@@ -1,0 +1,20 @@
+▲ Next.js 16.1.4 (Turbopack)
+- Environments: .env.local
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.6s
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/(pro)/portal/templates/page.tsx:141:220
+Type error: Object literal may only specify known properties, and 'client_name' does not exist in type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.
+
+[0m [90m 139 |[39m                 [33m<[39m[33mp[39m className[33m=[39m[32m"text-sm text-indigo-700 mb-4"[39m[33m>[39m[33mUse[39m these variables [36min[39m your subject or body[33m.[39m [33mThey[39m will be dynamically replaced when the email is sent[33m.[39m[33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 140 |[39m                 [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex flex-wrap gap-3"[39m[33m>[39m
+[31m[1m>[22m[39m[90m 141 |[39m                     [33m<[39m[33mcode[39m className[33m=[39m[32m"bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform"[39m title[33m=[39m[32m"Client's Full Name"[39m[33m>[39m{{ client_name }}[33m<[39m[33m/[39m[33mcode[39m[33m>[39m
+ [90m     |[39m                                                                                                                                                                                                                            [31m[1m^[22m[39m
+ [90m 142 |[39m                     [33m<[39m[33mcode[39m className[33m=[39m[32m"bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform"[39m title[33m=[39m[32m"Listing Address"[39m[33m>[39m{{ property_address }}[33m<[39m[33m/[39m[33mcode[39m[33m>[39m
+ [90m 143 |[39m                     [33m<[39m[33mcode[39m className[33m=[39m[32m"bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform"[39m title[33m=[39m[32m"New Transaction Status"[39m[33m>[39m{{ new_status }}[33m<[39m[33m/[39m[33mcode[39m[33m>[39m
+ [90m 144 |[39m                 [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

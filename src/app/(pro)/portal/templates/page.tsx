@@ -138,9 +138,9 @@ export default function TemplatesPage() {
                 <h3 className="text-indigo-900 font-black tracking-tight mb-3">Available Variables</h3>
                 <p className="text-sm text-indigo-700 mb-4">Use these variables in your subject or body. They will be dynamically replaced when the email is sent.</p>
                 <div className="flex flex-wrap gap-3">
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Client's Full Name">{{ client_name }}</code>
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Listing Address">{{ property_address }}</code>
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="New Transaction Status">{{ new_status }}</code>
+                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Client's Full Name">{"{{ client_name }}"}</code>
+                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Listing Address">{"{{ property_address }}"}</code>
+                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="New Transaction Status">{"{{ new_status }}"}</code>
                 </div>
             </div>
 

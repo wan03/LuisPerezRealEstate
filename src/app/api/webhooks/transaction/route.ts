@@ -5,13 +5,11 @@ import crypto from 'crypto';
 
 // Initialize a Supabase admin client to bypass RLS for webhook processing
 // Note: Requires SUPABASE_SERVICE_ROLE_KEY to be set in environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function POST(req: Request) {
     try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+        const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
         // Validate Webhook Secret if set (recommended for production)
         const secret = process.env.SUPABASE_WEBHOOK_SECRET;
         if (secret) {
