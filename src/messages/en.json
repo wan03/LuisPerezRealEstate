@@ -12,11 +12,33 @@
     },
     "hero": {
         "badge": "New for 2026: The Triad Experience",
-        "heading": "OWN THE",
-        "headingHighlight": "HIGHLANDS.",
+        "serving": "Serving Highlands County, FL",
+        "heading": "Know the",
+        "headingHighlight": "number",
+        "headingTail": "first.",
         "subheading": "High-performance real estate for Highlands County. TikTok-style walkthroughs, precise PITI+ math, and a completely transparent transaction roadmap.",
         "startRoadmap": "Start Your Roadmap",
-        "exploreKnowledge": "Explore Knowledge Base"
+        "runEngine": "Run the PITI+ Engine",
+        "browseListings": "Browse Listings",
+        "exploreKnowledge": "Explore Knowledge Base",
+        "samplePanelLabel": "Sample · Sebring $345K @ 6.6% · 20% down",
+        "samplePanelNote": "Homestead applied · Highlands County millage",
+        "samplePI": "Principal & Interest",
+        "sampleTax": "Property Tax",
+        "sampleIns": "Insurance"
+    },
+    "process": {
+        "sectionLabel": "The Process",
+        "title": "How it",
+        "titleHighlight": "works.",
+        "step1Title": "Strategy Call",
+        "step1Body": "15 minutes. We map your budget, timeline, and goals for the Highlands County market.",
+        "step2Title": "Your Number",
+        "step2Body": "The PITI+ engine delivers your exact monthly — taxes, insurance, CDD fees — before you ever tour.",
+        "step3Title": "Walkthrough Film",
+        "step3Body": "TikTok-style tours so you see properties before they hit Zillow. Never miss a deal again.",
+        "step4Title": "Close Clean",
+        "step4Body": "A transparent transaction roadmap. Every step tracked. Zero surprises on closing day."
     },
     "marketplace": {
         "badge": "Live Tours",
@@ -46,7 +68,12 @@
         "story3Badge": "0% Down Strategy",
         "story3Name": "Marcus J.",
         "story3Subtitle": "Investment Land",
-        "story3Quote": "\"As a first-time investor, I needed someone who knew the zoning laws. Luis and his team are the authority in Highlands County land.\""
+        "story3Quote": "\"As a first-time investor, I needed someone who knew the zoning laws. Luis and his team are the authority in Highlands County land.\"",
+        "title2": "The",
+        "titleHighlight2": "receipts.",
+        "stat1Label": "Closings · Highlands County '25",
+        "stat2Label": "Avg. days to close",
+        "stat3Label": "Avg. tax saved / client"
     },
     "library": {
         "badge": "Free Knowledge",
@@ -92,7 +119,7 @@
         "interestRate": "Interest Rate",
         "annualTax": "Annual Tax",
         "annualInsurance": "Annual Insurance",
-        "cddFee": "CDD Fee (monthly)",
+        "cddFee": "CDD Fee (annual)",
         "monthlyPayment": "Your Monthly Payment",
         "breakdown": "Full Breakdown",
         "principal": "Principal & Interest",
@@ -135,7 +162,24 @@
         "successBody": "Luis and his team will reach out within 24 hours to schedule your personalized strategy session.",
         "close": "Close"
     },
+    "footer": {
+        "tagline": "High-performance real estate for Highlands County — Sebring, Avon Park, Lake Placid, and the surrounding lakes.",
+        "platform": "Platform",
+        "pitiEngine": "PITI+ Engine",
+        "commandCenter": "Command Center",
+        "markets": "Markets",
+        "marketSebring": "Sebring",
+        "marketAvonPark": "Avon Park",
+        "marketLakePlacid": "Lake Placid",
+        "marketSurrounding": "Surrounding Lakes",
+        "connect": "Connect",
+        "legal": "© 2026 Luis Perez Real Estate · Licensed in Florida · REALTORS®",
+        "poweredBy": "Powered by Command Center™"
+    },
     "common": {
-        "languageName": "English"
+        "languageName": "English",
+        "more": "More",
+        "fullHub": "Full Hub",
+        "backToSite": "Back to Site"
     }
 }

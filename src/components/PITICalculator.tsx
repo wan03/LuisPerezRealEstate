@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { calculatePITI, PITIInput, PITIResult } from '@/lib/calculator';
-import { Info, Calculator, Percent, DollarSign, Landmark } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 
-export default function PITICalculator({ initialPrice = 450000 }: { initialPrice?: number }) {
+export default function PITICalculator({ initialPrice = 345000 }: { initialPrice?: number }) {
     const [inputs, setInputs] = useState<PITIInput>({
         price: initialPrice,
-        downPayment: initialPrice * 0.2,
-        interestRate: 0.07,
+        downPayment: Math.round(initialPrice * 0.2),
+        interestRate: 0.066,
         years: 30,
         taxRate: 0.012,
         insuranceYearly: 2400,
@@ -34,144 +33,124 @@ export default function PITICalculator({ initialPrice = 450000 }: { initialPrice
 
     if (!results) return null;
 
+    const max = Math.max(results.principalInterest, results.propertyTax, results.insurance, results.cdd, 1);
+    const w = (n: number) => `${(n / max) * 100}%`;
+
     return (
-        <div className="bg-white rounded-3xl p-8 shadow-2xl border border-slate-100 max-w-2xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-                <div className="bg-indigo-600 p-3 rounded-2xl">
-                    <Calculator className="text-white" />
-                </div>
-                <div>
-                    <h2 className="text-2xl font-black text-slate-800 tracking-tight">{t('piti.title')}</h2>
-                    <p className="text-slate-500 text-sm font-medium">Florida-Specific Monthly Estimate</p>
-                </div>
-            </div>
+        <div className="piti relative overflow-hidden bg-bg2 border border-line">
+            <div className="grid-bg" style={{ opacity: 0.2 }} />
+            <div className="relative z-[2] grid grid-cols-1 lg:grid-cols-2">
+                {/* LEFT — inputs */}
+                <div className="p-7 md:p-12 border-b lg:border-b-0 lg:border-r border-line">
+                    <div className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2 mb-2">03 / {t('tools.badge')}</div>
+                    <h2 className="text-[clamp(26px,3vw,40px)] font-black uppercase tracking-[-0.03em] leading-[0.96] mb-3.5">
+                        {t('tools.title')} <em className="not-italic text-lime">{t('tools.titleHighlight')}</em>
+                    </h2>
+                    <p className="text-mut text-[14.5px] max-w-[40ch] mb-6 leading-relaxed">{t('tools.description')}</p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left Col: Inputs */}
-                <div className="space-y-6">
-                    <div className="group">
-                        <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2 group-focus-within:text-indigo-600 transition-colors">
-                            {t('piti.homePrice')}
-                        </label>
+                    {/* Home price */}
+                    <div className="mb-3.5">
+                        <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.homePrice')}</label>
                         <div className="relative">
-                            <DollarSign size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                            <input
-                                type="number"
-                                name="price"
-                                value={inputs.price}
-                                onChange={handleChange}
-                                className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-10 pr-4 font-bold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all"
-                            />
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">$</span>
+                            <input type="number" name="price" value={inputs.price} onChange={handleChange} className="lp-input pl-6 pr-3 py-[11px] text-[14px]" />
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Down + rate */}
+                    <div className="grid grid-cols-2 gap-2.5 mb-3.5">
                         <div>
-                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t('piti.downPayment')}</label>
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.downPayment')}</label>
                             <div className="relative">
-                                <DollarSign size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input
-                                    type="number"
-                                    name="downPayment"
-                                    value={inputs.downPayment}
-                                    onChange={handleChange}
-                                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-10 pr-4 font-bold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all text-sm"
-                                />
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">$</span>
+                                <input type="number" name="downPayment" value={inputs.downPayment} onChange={handleChange} className="lp-input pl-6 pr-3 py-[11px] text-[14px]" />
                             </div>
                         </div>
                         <div>
-                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t('piti.interestRate')} (%)</label>
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.interestRate')}</label>
                             <div className="relative">
-                                <Percent size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input
-                                    type="number"
-                                    name="interestRate"
-                                    step="0.001"
-                                    value={inputs.interestRate * 100}
-                                    onChange={(e) => setInputs(p => ({ ...p, interestRate: parseFloat(e.target.value) / 100 }))}
-                                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-10 pr-4 font-bold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all text-sm"
-                                />
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">%</span>
+                                <input type="number" step="0.01" name="interestRate" value={+(inputs.interestRate * 100).toFixed(3)} onChange={(e) => setInputs(p => ({ ...p, interestRate: (parseFloat(e.target.value) || 0) / 100 }))} className="lp-input pl-[22px] pr-3 py-[11px] text-[14px]" />
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Tax + insurance + cdd */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                         <div>
-                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t('piti.annualTax')} (%)</label>
-                            <input
-                                type="number"
-                                name="taxRate"
-                                step="0.001"
-                                value={inputs.taxRate * 100}
-                                onChange={(e) => setInputs(p => ({ ...p, taxRate: parseFloat(e.target.value) / 100 }))}
-                                className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 px-4 font-bold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all text-sm"
-                            />
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.annualTax')}</label>
+                            <div className="relative">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">%</span>
+                                <input type="number" step="0.01" name="taxRate" value={+(inputs.taxRate * 100).toFixed(3)} onChange={(e) => setInputs(p => ({ ...p, taxRate: (parseFloat(e.target.value) || 0) / 100 }))} className="lp-input pl-[22px] pr-3 py-[11px] text-[14px]" />
+                            </div>
                         </div>
                         <div>
-                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">CDD ({t('piti.perMonth').replace('/', '')})</label>
-                            <input
-                                type="number"
-                                name="cddYearly"
-                                value={inputs.cddYearly}
-                                onChange={handleChange}
-                                className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 px-4 font-bold text-slate-800 focus:outline-none focus:border-indigo-500 transition-all text-sm"
-                            />
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.annualInsurance')}</label>
+                            <div className="relative">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">$</span>
+                                <input type="number" name="insuranceYearly" value={inputs.insuranceYearly} onChange={handleChange} className="lp-input pl-6 pr-3 py-[11px] text-[14px]" />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">{t('piti.cddFee')}</label>
+                            <div className="relative">
+                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mut font-mono text-[13px] pointer-events-none">$</span>
+                                <input type="number" name="cddYearly" value={inputs.cddYearly} onChange={handleChange} className="lp-input pl-6 pr-3 py-[11px] text-[14px]" />
+                            </div>
                         </div>
                     </div>
 
-                    <label className="flex items-center gap-3 cursor-pointer group bg-indigo-50 p-4 rounded-2xl border border-indigo-100 transition-all hover:bg-indigo-100">
-                        <div className="relative">
-                            <input
-                                type="checkbox"
-                                name="isHomesteadExempt"
-                                checked={inputs.isHomesteadExempt}
-                                onChange={handleChange}
-                                className="sr-only peer"
-                            />
-                            <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                        </div>
-                        <span className="text-sm font-bold text-indigo-900 select-none">{t('piti.homestead')} ($50k)</span>
-                        <Info size={14} className="text-indigo-400 ml-auto" />
+                    {/* Homestead toggle */}
+                    <label className="flex items-center gap-2.5 border border-line bg-panel px-3.5 py-[11px] cursor-pointer mt-2.5 hover:border-mut transition-colors">
+                        <input type="checkbox" name="isHomesteadExempt" checked={inputs.isHomesteadExempt} onChange={handleChange} className="hidden peer" />
+                        <span className="w-10 h-[22px] bg-[#2a3340] relative transition-colors flex-none peer-checked:bg-lime after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-[18px] after:h-[18px] after:bg-white after:transition-transform peer-checked:after:translate-x-[18px] peer-checked:after:bg-bg" />
+                        <span className="font-mono text-[11px] font-bold uppercase">{t('piti.homestead')} · $50K</span>
                     </label>
                 </div>
 
-                {/* Right Col: Results */}
-                <div className="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden flex flex-col justify-between">
-                    <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12">
-                        <Landmark size={120} />
+                {/* RIGHT — results */}
+                <div className="p-7 md:p-12 flex flex-col justify-center" style={{ background: 'radial-gradient(circle at 85% 10%,rgba(59,98,255,.14),transparent 55%)' }}>
+                    <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut">{t('piti.monthlyPayment')}</div>
+                    <div className="text-[clamp(54px,8vw,100px)] font-black tracking-[-0.05em] leading-[0.9] mt-1.5 mb-1">
+                        ${results.totalMonthly.toLocaleString()}<small className="text-[22px] text-mut font-semibold">{t('piti.perMonth')}</small>
                     </div>
+                    <div className="font-mono text-[11px] text-lime mb-6">▾ {t('piti.homesteadBadge')} ${results.homesteadSavings.toLocaleString()}{t('piti.perMonth')}</div>
 
-                    <div className="relative z-10">
-                        <h3 className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">{t('piti.monthlyPayment')}</h3>
-                        <div className="text-5xl font-black mb-8">${results.totalMonthly.toLocaleString()}</div>
-
-                        <div className="space-y-4">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500" /> {t('piti.principal')}</span>
-                                <span className="font-bold">${results.principalInterest.toLocaleString()}</span>
+                    <div className="flex flex-col gap-3">
+                        {/* P&I */}
+                        <div>
+                            <div className="flex justify-between font-mono text-[11.5px] mb-1">
+                                <span className="text-mut flex gap-1.5 items-center"><i className="w-2 h-2 flex-none" style={{ background: 'var(--blue)' }} />{t('piti.principal')}</span>
+                                <b className="text-ink">${results.principalInterest.toLocaleString()}</b>
                             </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-orange-500" /> {t('piti.tax')}</span>
-                                <span className="font-bold">${results.propertyTax.toLocaleString()}</span>
+                            <div className="lp-track"><i style={{ width: w(results.principalInterest), background: 'var(--blue)' }} /></div>
+                        </div>
+                        {/* Tax */}
+                        <div>
+                            <div className="flex justify-between font-mono text-[11.5px] mb-1">
+                                <span className="text-mut flex gap-1.5 items-center"><i className="w-2 h-2 flex-none" style={{ background: 'var(--org)' }} />{t('piti.tax')}</span>
+                                <b className="text-ink">${results.propertyTax.toLocaleString()}</b>
                             </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500" /> {t('piti.insurance')}</span>
-                                <span className="font-bold">${results.insurance.toLocaleString()}</span>
+                            <div className="lp-track"><i style={{ width: w(results.propertyTax), background: 'var(--org)' }} /></div>
+                        </div>
+                        {/* Insurance */}
+                        <div>
+                            <div className="flex justify-between font-mono text-[11.5px] mb-1">
+                                <span className="text-mut flex gap-1.5 items-center"><i className="w-2 h-2 flex-none" style={{ background: 'var(--lime)' }} />{t('piti.insurance')}</span>
+                                <b className="text-ink">${results.insurance.toLocaleString()}</b>
                             </div>
-                            {results.cdd > 0 && (
-                                <div className="flex justify-between items-center text-sm">
-                                    <span className="text-slate-400 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-yellow-500" /> {t('piti.cdd')}</span>
-                                    <span className="font-bold">${results.cdd.toLocaleString()}</span>
+                            <div className="lp-track"><i style={{ width: w(results.insurance), background: 'var(--lime)' }} /></div>
+                        </div>
+                        {/* CDD (conditional) */}
+                        {results.cdd > 0 && (
+                            <div>
+                                <div className="flex justify-between font-mono text-[11.5px] mb-1">
+                                    <span className="text-mut flex gap-1.5 items-center"><i className="w-2 h-2 flex-none" style={{ background: 'var(--mut)' }} />{t('piti.cdd')}</span>
+                                    <b className="text-ink">${results.cdd.toLocaleString()}</b>
                                 </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="mt-8 pt-6 border-t border-slate-800 relative z-10">
-                        <div className="bg-indigo-500/20 rounded-xl p-3 flex items-center justify-between border border-indigo-500/20">
-                            <span className="text-xs font-bold text-indigo-300">{t('piti.homesteadBadge')}</span>
-                            <span className="text-sm font-black text-indigo-400">-${results.homesteadSavings}{t('piti.perMonth')}</span>
-                        </div>
+                                <div className="lp-track"><i style={{ width: w(results.cdd), background: 'var(--mut)' }} /></div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

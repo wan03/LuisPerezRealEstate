@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Rocket, User, BookOpen, ShieldCheck, LogOut, Globe } from 'lucide-react';
+import { Menu, X, User, LogOut, Globe } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
@@ -40,80 +40,76 @@ export default function Navbar() {
     setLocale(locale === 'en' ? 'es' : 'en');
   };
 
+  const btnBase = 'inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px';
+
   return (
     <>
       <LeadCaptureWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} source="Navbar" />
-      <nav className="bg-white border-b border-slate-100 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between h-20 items-center">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="bg-slate-900 p-2 rounded-xl">
-                <Rocket className="text-white" size={20} />
+      <nav className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-5 md:px-8">
+          <div className="flex justify-between items-center h-[72px]">
+            {/* Brand */}
+            <Link href="/" className="flex items-center gap-3">
+              <span className="lp-mark w-[38px] h-[38px] text-[14px]">LP</span>
+              <div>
+                <div className="font-black text-[15px] tracking-[-0.025em] uppercase leading-none">
+                  Luis Perez<span className="text-blue2">/RE</span>
+                </div>
+                <div className="font-mono text-[10px] text-mut mt-[3px]">Highlands County, FL</div>
               </div>
-              <span className="text-xl font-black tracking-tighter text-slate-900 italic uppercase">
-                LUIS PEREZ <span className="text-indigo-600">RE</span>
-              </span>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8 text-black">
-              <Link href="/" className="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors">{t('nav.marketplace')}</Link>
-              <Link href="/learn" className="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1">
-                <BookOpen size={16} /> {t('nav.educationHub')}
-              </Link>
-              <button
-                onClick={() => setIsWizardOpen(true)}
-                className="text-sm font-black text-indigo-600 bg-indigo-50 px-4 py-2 rounded-xl hover:bg-indigo-100 transition-all border border-indigo-100 uppercase tracking-wide"
-              >
-                {t('nav.strategySession')}
-              </button>
+            <div className="hidden md:flex items-center gap-7">
+              <Link href="/#marketplace" className="text-[13px] font-bold text-mut hover:text-ink transition-colors">{t('nav.marketplace')}</Link>
+              <Link href="/#piti" className="text-[13px] font-bold text-mut hover:text-ink transition-colors">PITI+</Link>
+              <Link href="/learn" className="text-[13px] font-bold text-mut hover:text-ink transition-colors">{t('nav.educationHub')}</Link>
+            </div>
 
-              {/* Language Switcher */}
+            {/* Right cluster */}
+            <div className="hidden md:flex items-center gap-2.5">
               <button
                 onClick={toggleLocale}
-                className="flex items-center gap-1.5 text-sm font-bold text-slate-500 hover:text-slate-900 transition-colors bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 hover:border-slate-300"
+                className="font-mono text-[10px] font-bold tracking-[0.06em] text-mut border border-line px-2.5 py-[7px] hover:text-lime hover:border-lime transition-colors flex items-center gap-1.5"
                 title={locale === 'en' ? 'Cambiar a Español' : 'Switch to English'}
               >
-                <Globe size={14} />
-                <span className="uppercase text-xs font-black tracking-wide">{locale === 'en' ? 'ES' : 'EN'}</span>
+                <Globe size={12} />
+                {locale === 'en' ? 'EN/ES' : 'ES/EN'}
               </button>
-
-              <div className="h-6 w-px bg-slate-100 mx-2" />
 
               {session ? (
                 <>
-                  <Link href="/dashboard" className="text-sm font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-all flex items-center gap-2">
-                    <User size={16} /> {t('nav.dashboard')}
+                  <Link href="/dashboard" className={`${btnBase} bg-panel2 text-ink hover:bg-[#222b3a]`}>
+                    <User size={15} /> {t('nav.dashboard')}
                   </Link>
-                  <button onClick={handleSignOut} className="text-slate-400 hover:text-red-500 transition-colors">
+                  <button onClick={handleSignOut} className="text-mut hover:text-org transition-colors p-2" title={t('nav.signOut')}>
                     <LogOut size={18} />
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="text-sm font-bold text-slate-900 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-100 transition-all flex items-center gap-2">
-                    <User size={16} /> {t('nav.login')}
+                  <Link href="/login" className={`${btnBase} bg-panel2 text-ink hover:bg-[#222b3a]`}>
+                    {t('nav.login')}
                   </Link>
-                  <Link href="/signup" className="text-sm font-black text-white bg-indigo-600 px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center gap-2">
-                    <ShieldCheck size={16} /> {t('nav.applyForAccess')}
-                  </Link>
+                  <button onClick={() => setIsWizardOpen(true)} className={`${btnBase} bg-lime text-bg hover:bg-[#d2ff56]`}>
+                    {t('nav.applyForAccess')} →
+                  </button>
                 </>
               )}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center gap-3">
+            {/* Mobile controls */}
+            <div className="md:hidden flex items-center gap-2">
               <button
                 onClick={toggleLocale}
-                className="flex items-center gap-1 text-slate-500 bg-slate-50 px-2.5 py-2 rounded-xl border border-slate-200"
+                className="font-mono text-[10px] font-bold text-mut border border-line px-2.5 py-2"
               >
-                <Globe size={14} />
-                <span className="uppercase text-[10px] font-black">{locale === 'en' ? 'ES' : 'EN'}</span>
+                {locale === 'en' ? 'EN/ES' : 'ES/EN'}
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-slate-400 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                className="text-ink p-1 focus:outline-none"
+                aria-label="Menu"
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -123,33 +119,28 @@ export default function Navbar() {
 
         {/* Mobile Nav */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-slate-100 p-4 space-y-4">
-            <Link href="/" onClick={() => setIsOpen(false)} className="block text-lg font-bold text-slate-900">{t('nav.marketplace')}</Link>
-            <Link href="/learn" onClick={() => setIsOpen(false)} className="block text-lg font-bold text-slate-900">{t('nav.educationHub')}</Link>
-            <button
-              onClick={() => { setIsWizardOpen(true); setIsOpen(false); }}
-              className="block w-full text-center py-4 bg-indigo-50 text-indigo-900 rounded-2xl font-black border border-indigo-100 uppercase tracking-widest mt-4"
-            >
-              {t('nav.bookStrategySession')}
-            </button>
-            <div className="pt-4 space-y-3">
+          <div className="md:hidden bg-bg2 border-t border-line px-5 pb-6 pt-2">
+            <Link href="/#marketplace" onClick={() => setIsOpen(false)} className="block text-[15px] font-bold text-mut hover:text-ink py-3 border-b border-line">{t('nav.marketplace')}</Link>
+            <Link href="/#piti" onClick={() => setIsOpen(false)} className="block text-[15px] font-bold text-mut hover:text-ink py-3 border-b border-line">PITI+</Link>
+            <Link href="/learn" onClick={() => setIsOpen(false)} className="block text-[15px] font-bold text-mut hover:text-ink py-3 border-b border-line">{t('nav.educationHub')}</Link>
+            <div className="flex gap-2.5 mt-4">
               {session ? (
                 <>
-                  <Link href="/dashboard" onClick={() => setIsOpen(false)} className="block w-full text-center py-4 bg-slate-50 rounded-2xl font-bold text-slate-900 border border-slate-200">
+                  <Link href="/dashboard" onClick={() => setIsOpen(false)} className={`${btnBase} flex-1 bg-panel2 text-ink`}>
                     {t('nav.dashboard')}
                   </Link>
-                  <button onClick={handleSignOut} className="block w-full text-center py-4 text-red-600 font-bold uppercase tracking-widest text-xs">
+                  <button onClick={handleSignOut} className={`${btnBase} flex-1 bg-panel2 text-org`}>
                     {t('nav.signOut')}
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/login" onClick={() => setIsOpen(false)} className="block w-full text-center py-4 bg-slate-50 rounded-2xl font-bold text-slate-900 border border-slate-200">
-                    {t('nav.secureLogin')}
+                  <Link href="/login" onClick={() => setIsOpen(false)} className={`${btnBase} flex-1 bg-panel2 text-ink`}>
+                    {t('nav.login')}
                   </Link>
-                  <Link href="/signup" onClick={() => setIsOpen(false)} className="block w-full text-center py-4 bg-indigo-600 rounded-2xl font-bold text-white shadow-lg">
-                    {t('nav.applyForAccess')}
-                  </Link>
+                  <button onClick={() => { setIsWizardOpen(true); setIsOpen(false); }} className={`${btnBase} flex-1 bg-lime text-bg`}>
+                    {t('nav.applyForAccess')} →
+                  </button>
                 </>
               )}
             </div>

@@ -12,11 +12,33 @@
     },
     "hero": {
         "badge": "Nuevo 2026: La Experiencia Triada",
-        "heading": "CONQUISTA",
-        "headingHighlight": "HIGHLANDS.",
+        "serving": "Sirviendo el Condado de Highlands, FL",
+        "heading": "Conoce el",
+        "headingHighlight": "número",
+        "headingTail": "primero.",
         "subheading": "Bienes raíces de alto rendimiento para el Condado de Highlands. Recorridos estilo TikTok, cálculos PITI+ precisos y un plan de transacción completamente transparente.",
         "startRoadmap": "Inicia Tu Plan",
-        "exploreKnowledge": "Explora el Centro de Conocimiento"
+        "runEngine": "Calcular PITI+",
+        "browseListings": "Ver Propiedades",
+        "exploreKnowledge": "Explora el Centro de Conocimiento",
+        "samplePanelLabel": "Ejemplo · Sebring $345K @ 6.6% · 20% enganche",
+        "samplePanelNote": "Homestead aplicado · millage del Condado Highlands",
+        "samplePI": "Capital e Interés",
+        "sampleTax": "Impuesto a la Propiedad",
+        "sampleIns": "Seguro"
+    },
+    "process": {
+        "sectionLabel": "El Proceso",
+        "title": "Cómo",
+        "titleHighlight": "funciona.",
+        "step1Title": "Llamada Estratégica",
+        "step1Body": "15 minutos. Mapeamos tu presupuesto, cronograma y objetivos para el mercado del Condado Highlands.",
+        "step2Title": "Tu Número",
+        "step2Body": "El motor PITI+ entrega tu pago mensual exacto — impuestos, seguro, tarifas CDD — antes de visitar.",
+        "step3Title": "Recorrido en Video",
+        "step3Body": "Tours estilo TikTok para que veas propiedades antes que lleguen a Zillow. Nunca pierdas un trato.",
+        "step4Title": "Cierre Limpio",
+        "step4Body": "Un plan de transacción transparente. Cada paso rastreado. Sin sorpresas el día del cierre."
     },
     "marketplace": {
         "badge": "Tours en Vivo",
@@ -46,7 +68,12 @@
         "story3Badge": "Estrategia 0% de Enganche",
         "story3Name": "Marcus J.",
         "story3Subtitle": "Terreno de Inversión",
-        "story3Quote": "\"Como inversionista principiante, necesitaba a alguien que conociera las leyes de zonificación. Luis y su equipo son la autoridad en terrenos del Condado Highlands.\""
+        "story3Quote": "\"Como inversionista principiante, necesitaba a alguien que conociera las leyes de zonificación. Luis y su equipo son la autoridad en terrenos del Condado Highlands.\"",
+        "title2": "Los",
+        "titleHighlight2": "resultados.",
+        "stat1Label": "Cierres · Condado Highlands '25",
+        "stat2Label": "Días promedio al cierre",
+        "stat3Label": "Impuesto ahorrado / cliente"
     },
     "library": {
         "badge": "Conocimiento Gratis",
@@ -92,7 +119,7 @@
         "interestRate": "Tasa de Interés",
         "annualTax": "Impuesto Anual",
         "annualInsurance": "Seguro Anual",
-        "cddFee": "Tarifa CDD (mensual)",
+        "cddFee": "Tarifa CDD (anual)",
         "monthlyPayment": "Tu Pago Mensual",
         "breakdown": "Desglose Completo",
         "principal": "Capital e Interés",
@@ -135,7 +162,24 @@
         "successBody": "Luis y su equipo se comunicarán en 24 horas para agendar tu sesión estratégica personalizada.",
         "close": "Cerrar"
     },
+    "footer": {
+        "tagline": "Bienes raíces de alto rendimiento para el Condado de Highlands — Sebring, Avon Park, Lake Placid y los lagos cercanos.",
+        "platform": "Plataforma",
+        "pitiEngine": "Motor PITI+",
+        "commandCenter": "Centro de Comando",
+        "markets": "Mercados",
+        "marketSebring": "Sebring",
+        "marketAvonPark": "Avon Park",
+        "marketLakePlacid": "Lake Placid",
+        "marketSurrounding": "Lagos Cercanos",
+        "connect": "Conecta",
+        "legal": "© 2026 Luis Perez Real Estate · Licenciado en Florida · REALTORS®",
+        "poweredBy": "Impulsado por Command Center™"
+    },
     "common": {
-        "languageName": "Español"
+        "languageName": "Español",
+        "more": "Más",
+        "fullHub": "Centro Completo",
+        "backToSite": "Volver al Sitio"
     }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { Play, Pause, MapPin, Ruler, Home as HomeIcon, School, Waves, FileText, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 interface ListingProps {
     id: string;
@@ -14,6 +14,8 @@ interface ListingProps {
     floodZone?: string;
     schoolRating?: number;
     isVacantLand?: boolean;
+    size?: string;
+    isNew?: boolean;
 }
 
 export default function ListingCard({ listing }: { listing: ListingProps }) {
@@ -55,10 +57,13 @@ export default function ListingCard({ listing }: { listing: ListingProps }) {
         }
     };
 
+    const formatPrice = (n: number) =>
+        n >= 1000 ? `$${Math.round(n / 1000)}K` : `$${n.toLocaleString()}`;
+
     return (
-        <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 transition-all hover:shadow-2xl group">
-            {/* Video Container */}
-            <div className="relative aspect-[9/16] bg-black cursor-pointer overflow-hidden" onClick={togglePlay}>
+        <div className="bg-panel border border-line overflow-hidden transition-all hover:border-blue hover:-translate-y-[3px] group">
+            {/* Media */}
+            <div className="relative aspect-[16/11] bg-[#0c1119] cursor-pointer overflow-hidden" onClick={togglePlay}>
                 {listing.videoUrl ? (
                     <video
                         ref={videoRef}
@@ -70,80 +75,74 @@ export default function ListingCard({ listing }: { listing: ListingProps }) {
                         playsInline
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-white/20">
-                        <HomeIcon size={64} />
-                    </div>
+                    <>
+                        {/* Blueprint stripe placeholder */}
+                        <div
+                            className="absolute inset-0"
+                            style={{ background: 'repeating-linear-gradient(135deg,#10151e 0 12px,#0c1119 12px 24px)' }}
+                        />
+                        <div className="absolute inset-0 grid place-items-center font-mono text-[10px] tracking-[0.12em] uppercase text-[#2c3749]">
+                            [ 16:9 walkthrough ]
+                        </div>
+                    </>
                 )}
 
-                {/* Play/Pause Overlay */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-opacity ${isPlaying ? 'opacity-0' : 'opacity-100'}`}>
-                    <div className="bg-white/20 backdrop-blur-md rounded-full p-4 border border-white/30">
-                        {isPlaying ? <Pause className="text-white fill-white" /> : <Play className="text-white fill-white ml-1" />}
-                    </div>
-                </div>
-
-                {/* Mute Toggle */}
-                <button
-                    onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
-                    className="absolute top-4 right-4 bg-black/20 backdrop-blur-md p-2 rounded-full border border-white/20 text-white hover:bg-white/20 transition-all z-20"
-                >
-                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                </button>
-
-                {/* Info Overlays */}
-                <div className="absolute top-4 left-4 flex flex-col gap-2">
+                {/* Badges */}
+                <div className="absolute top-3 left-3 flex gap-1.5">
                     {listing.isVacantLand && (
-                        <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
-                            <Ruler size={12} /> VACANT LAND
-                        </span>
+                        <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-org text-[#1a0904]">Land</span>
                     )}
                     {listing.floodZone && (
-                        <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
-                            <Waves size={12} /> ZONE {listing.floodZone}
-                        </span>
+                        <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-blue text-white">Zone {listing.floodZone}</span>
+                    )}
+                    {listing.isNew && (
+                        <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-lime text-bg">New</span>
                     )}
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4 text-white drop-shadow-md">
-                    <h3 className="text-xl font-bold truncate">{listing.title}</h3>
-                    <p className="flex items-center gap-1 text-white/80 text-sm">
-                        <MapPin size={14} /> {listing.location}
-                    </p>
+                {/* Mute toggle (only meaningful with video) */}
+                {listing.videoUrl && (
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
+                        className="absolute top-3 right-3 bg-black/40 p-2 text-white hover:bg-black/60 transition-all z-20"
+                    >
+                        {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                    </button>
+                )}
+
+                {/* Play button */}
+                <div className="absolute right-3 bottom-3 w-10 h-10 bg-lime grid place-items-center">
+                    {isPlaying
+                        ? <Pause size={14} className="text-bg fill-bg" />
+                        : <Play size={14} className="text-bg fill-bg ml-0.5" />}
                 </div>
             </div>
 
-            {/* Content */}
-            <div className="p-5 space-y-4">
-                <div className="flex justify-between items-baseline">
-                    <span className="text-2xl font-black text-slate-900">${listing.price.toLocaleString()}</span>
-                    <button className="text-indigo-600 font-semibold text-sm hover:underline">View Roadmap</button>
+            {/* Body */}
+            <div className="p-4">
+                <div className="flex items-start justify-between gap-2.5">
+                    <div>
+                        <h4 className="text-[15px] font-extrabold uppercase tracking-[-0.01em] truncate">{listing.title}</h4>
+                        <div className="font-mono text-[10px] text-mut mt-[3px]">◎ {listing.location}</div>
+                    </div>
+                    <div className="text-[22px] font-black tracking-[-0.02em] whitespace-nowrap">{formatPrice(listing.price)}</div>
                 </div>
+            </div>
 
-                {/* Features / Zoning */}
-                <div className="grid grid-cols-2 gap-3 pb-2">
-                    {listing.zoning && (
-                        <div className="flex items-center gap-2 text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <FileText size={16} className="text-slate-400" />
-                            <div>
-                                <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Zoning</p>
-                                <p className="text-xs font-bold text-slate-700">{listing.zoning}</p>
-                            </div>
-                        </div>
-                    )}
-                    {listing.schoolRating && (
-                        <div className="flex items-center gap-2 text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                            <School size={16} className="text-slate-400" />
-                            <div>
-                                <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Schools</p>
-                                <p className="text-xs font-bold text-slate-700">{listing.schoolRating}/10 Rating</p>
-                            </div>
-                        </div>
-                    )}
+            {/* Specs */}
+            <div className="grid grid-cols-3 border-t border-line">
+                <div className="p-2.5 border-r border-line">
+                    <div className="font-mono text-[9px] tracking-[0.08em] uppercase text-mut2">Zoning</div>
+                    <div className="text-[13px] font-extrabold">{listing.zoning || '—'}</div>
                 </div>
-
-                <button className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl transition-all hover:bg-slate-800 active:scale-[0.98]">
-                    Contact Team
-                </button>
+                <div className="p-2.5 border-r border-line">
+                    <div className="font-mono text-[9px] tracking-[0.08em] uppercase text-mut2">Size</div>
+                    <div className="text-[13px] font-extrabold">{listing.size || '—'}</div>
+                </div>
+                <div className="p-2.5">
+                    <div className="font-mono text-[9px] tracking-[0.08em] uppercase text-mut2">Schools</div>
+                    <div className="text-[13px] font-extrabold">{listing.schoolRating ? `${listing.schoolRating}/10` : '—'}</div>
+                </div>
             </div>
         </div>
     );

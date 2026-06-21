@@ -1,4 +1,5 @@
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 export default function PublicLayout({
     children,
@@ -6,14 +7,12 @@ export default function PublicLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-bg">
             <Navbar />
             <main className="flex-1">
                 {children}
             </main>
-            <footer className="bg-white border-t border-slate-200 py-12 text-center text-slate-400 font-bold uppercase tracking-widest text-xs">
-                © 2026 Luis Perez Real Estate • Powered by Command Center
-            </footer>
+            <Footer />
         </div>
     );
 }
