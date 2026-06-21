@@ -79,7 +79,7 @@ export default function Navbar() {
 
               {session ? (
                 <>
-                  <Link href="/dashboard" className={`${btnBase} bg-panel2 text-ink hover:bg-[#222b3a]`}>
+                  <Link href="/dashboard" className={`${btnBase} bg-panel2 text-ink hover:bg-elev`}>
                     <User size={15} /> {t('nav.dashboard')}
                   </Link>
                   <button onClick={handleSignOut} className="text-mut hover:text-org transition-colors p-2" title={t('nav.signOut')}>
@@ -88,10 +88,10 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Link href="/login" className={`${btnBase} bg-panel2 text-ink hover:bg-[#222b3a]`}>
+                  <Link href="/login" className={`${btnBase} bg-panel2 text-ink hover:bg-elev`}>
                     {t('nav.login')}
                   </Link>
-                  <button onClick={() => setIsWizardOpen(true)} className={`${btnBase} bg-lime text-bg hover:bg-[#d2ff56]`}>
+                  <button onClick={() => setIsWizardOpen(true)} className={`${btnBase} bg-lime text-accentink hover:bg-lime2`}>
                     {t('nav.applyForAccess')} →
                   </button>
                 </>
@@ -138,7 +138,7 @@ export default function Navbar() {
                   <Link href="/login" onClick={() => setIsOpen(false)} className={`${btnBase} flex-1 bg-panel2 text-ink`}>
                     {t('nav.login')}
                   </Link>
-                  <button onClick={() => { setIsWizardOpen(true); setIsOpen(false); }} className={`${btnBase} flex-1 bg-lime text-bg`}>
+                  <button onClick={() => { setIsWizardOpen(true); setIsOpen(false); }} className={`${btnBase} flex-1 bg-lime text-accentink`}>
                     {t('nav.applyForAccess')} →
                   </button>
                 </>

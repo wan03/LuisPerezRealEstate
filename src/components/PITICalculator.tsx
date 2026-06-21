@@ -103,7 +103,7 @@ export default function PITICalculator({ initialPrice = 345000 }: { initialPrice
                     {/* Homestead toggle */}
                     <label className="flex items-center gap-2.5 border border-line bg-panel px-3.5 py-[11px] cursor-pointer mt-2.5 hover:border-mut transition-colors">
                         <input type="checkbox" name="isHomesteadExempt" checked={inputs.isHomesteadExempt} onChange={handleChange} className="hidden peer" />
-                        <span className="w-10 h-[22px] bg-[#2a3340] relative transition-colors flex-none peer-checked:bg-lime after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-[18px] after:h-[18px] after:bg-white after:transition-transform peer-checked:after:translate-x-[18px] peer-checked:after:bg-bg" />
+                        <span className="w-10 h-[22px] bg-elev relative transition-colors flex-none peer-checked:bg-lime after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-[18px] after:h-[18px] after:bg-white after:transition-transform peer-checked:after:translate-x-[18px] peer-checked:after:bg-accentink" />
                         <span className="font-mono text-[11px] font-bold uppercase">{t('piti.homestead')} · $50K</span>
                     </label>
                 </div>

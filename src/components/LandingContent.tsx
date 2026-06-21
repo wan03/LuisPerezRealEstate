@@ -41,7 +41,7 @@ export default function LandingContent({ listings, articles }: { listings: Listi
 
     const articleList = articles.length > 0 ? articles : FALLBACK_ARTICLES;
 
-    const ghostBtn = 'inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-panel2 text-ink hover:bg-[#222b3a] transition-colors active:translate-y-px';
+    const ghostBtn = 'inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-panel2 text-ink hover:bg-elev transition-colors active:translate-y-px';
     const blueBtn = 'inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-blue text-white hover:bg-blue2 transition-colors active:translate-y-px';
 
     const processSteps = [

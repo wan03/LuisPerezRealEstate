@@ -102,7 +102,7 @@ export default function LoginPage() {
                 <div className="relative z-[2] w-full max-w-[440px]">
                     {/* Head */}
                     <div className="text-center mb-8">
-                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-bg mx-auto mb-4">LP</span>
+                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-accentink mx-auto mb-4">LP</span>
                         <h1 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">Command Center</h1>
                         <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut mt-1.5">Secure Access Portal</p>
                     </div>
@@ -157,7 +157,7 @@ export default function LoginPage() {
                             <button
                                 disabled={loading}
                                 type="submit"
-                                className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56] disabled:opacity-50`}
+                                className={`${btnBase} w-full bg-lime text-accentink hover:bg-lime2 disabled:opacity-50`}
                             >
                                 {loading ? (
                                     <Loader2 className="animate-spin" size={16} />

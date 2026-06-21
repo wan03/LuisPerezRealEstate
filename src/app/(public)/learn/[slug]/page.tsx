@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
                 {/* Content Section */}
                 <div
-                    className="prose prose-invert prose-lg max-w-none leading-[1.8] prose-headings:font-black prose-headings:tracking-[-0.02em] prose-headings:uppercase prose-p:mb-8 prose-p:text-mut prose-h2:text-3xl prose-h2:mt-12 prose-h2:text-ink prose-h3:text-2xl prose-h3:mt-8 prose-h3:text-ink prose-a:text-blue2 prose-a:no-underline hover:prose-a:text-lime prose-strong:text-ink prose-li:text-mut"
+                    className="prose prose-lg max-w-none leading-[1.8] prose-headings:font-black prose-headings:tracking-[-0.02em] prose-headings:uppercase prose-p:mb-8 prose-p:text-mut prose-h2:text-3xl prose-h2:mt-12 prose-h2:text-ink prose-h3:text-2xl prose-h3:mt-8 prose-h3:text-ink prose-a:text-blue2 prose-a:no-underline hover:prose-a:text-lime prose-strong:text-ink prose-li:text-mut"
                     dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                 />
 

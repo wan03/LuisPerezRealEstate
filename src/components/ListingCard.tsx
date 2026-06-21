@@ -96,7 +96,7 @@ export default function ListingCard({ listing }: { listing: ListingProps }) {
                         <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-blue text-white">Zone {listing.floodZone}</span>
                     )}
                     {listing.isNew && (
-                        <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-lime text-bg">New</span>
+                        <span className="font-mono text-[10px] font-bold uppercase px-[7px] py-1 bg-lime text-accentink">New</span>
                     )}
                 </div>
 
@@ -113,8 +113,8 @@ export default function ListingCard({ listing }: { listing: ListingProps }) {
                 {/* Play button */}
                 <div className="absolute right-3 bottom-3 w-10 h-10 bg-lime grid place-items-center">
                     {isPlaying
-                        ? <Pause size={14} className="text-bg fill-bg" />
-                        : <Play size={14} className="text-bg fill-bg ml-0.5" />}
+                        ? <Pause size={14} className="text-accentink fill-accentink" />
+                        : <Play size={14} className="text-accentink fill-accentink ml-0.5" />}
                 </div>
             </div>
 

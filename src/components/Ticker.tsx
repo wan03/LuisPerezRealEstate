@@ -25,7 +25,7 @@ const ITEMS = [
 export default function Ticker() {
     const items = [...ITEMS, ...ITEMS];
     return (
-        <div className="bg-lime text-bg overflow-hidden">
+        <div className="bg-lime text-accentink overflow-hidden">
             <div className="lp-ticker-track py-2.5">
                 {items.map((item, i) => (
                     <span

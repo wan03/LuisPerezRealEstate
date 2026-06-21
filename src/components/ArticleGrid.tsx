@@ -79,7 +79,7 @@ export default function ArticleGrid({ articles }: { articles: Article[] }) {
                                     <button
                                         key={value}
                                         onClick={() => setActiveCategory(value)}
-                                        className={`w-full text-left px-4 py-3 font-mono text-[11px] tracking-[0.08em] uppercase font-bold border transition-colors ${value === activeCategory ? 'bg-lime text-bg border-lime' : 'text-mut border-line hover:text-ink hover:border-mut'
+                                        className={`w-full text-left px-4 py-3 font-mono text-[11px] tracking-[0.08em] uppercase font-bold border transition-colors ${value === activeCategory ? 'bg-lime text-accentink border-lime' : 'text-mut border-line hover:text-ink hover:border-mut'
                                             }`}
                                     >
                                         {t(key)}
@@ -92,7 +92,7 @@ export default function ArticleGrid({ articles }: { articles: Article[] }) {
                             <BookMarked className="absolute -bottom-4 -right-4 text-line" size={120} />
                             <h4 className="font-black text-lg uppercase tracking-[-0.02em] mb-4 leading-tight relative z-[2]">{t('blog.roadmapTitle')}</h4>
                             <p className="text-mut text-[13px] font-medium mb-6 leading-relaxed relative z-[2]">{t('blog.roadmapDescription')}</p>
-                            <Link href="/dashboard" className="relative z-[2] inline-flex w-full items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-5 py-3 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px">
+                            <Link href="/dashboard" className="relative z-[2] inline-flex w-full items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-5 py-3 bg-lime text-accentink hover:bg-lime2 transition-colors active:translate-y-px">
                                 {t('blog.goToDashboard')}
                             </Link>
                         </div>

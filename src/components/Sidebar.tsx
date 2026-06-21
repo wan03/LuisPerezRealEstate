@@ -95,7 +95,7 @@ export default function Sidebar() {
             {/* User + Sign Out */}
             <div className="p-3 border-t border-line mt-auto">
                 <div className="flex items-center gap-2.5 px-2 py-2 mb-1">
-                    <div className="w-8 h-8 bg-lime text-bg flex items-center justify-center font-black text-[12px] flex-none">
+                    <div className="w-8 h-8 bg-lime text-accentink flex items-center justify-center font-black text-[12px] flex-none">
                         {initials || '??'}
                     </div>
                     <div className="leading-none min-w-0">

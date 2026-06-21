@@ -3,6 +3,12 @@ import { Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 import { LocaleProvider } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
+import ThemeToggle from "@/components/ThemeToggle";
+
+// Applies the persisted theme before first paint to avoid a flash of the
+// wrong theme. Default is dark, so we only set the attribute for light.
+const themeScript = `(function(){try{if(localStorage.getItem('lp-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -35,14 +41,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         className={`${archivo.variable} ${spaceMono.variable} antialiased`}
       >
-        <LocaleProvider>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </LocaleProvider>
+        <ThemeProvider>
+          <LocaleProvider>
+            <ToastProvider>
+              {children}
+              <ThemeToggle />
+            </ToastProvider>
+          </LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

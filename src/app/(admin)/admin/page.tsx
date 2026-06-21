@@ -50,7 +50,7 @@ export default function AdminConsole() {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-lime text-bg hover:bg-[#d2ff56]">
+                    <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-lime text-accentink hover:bg-lime2">
                         <UserPlus size={16} /> Invite User
                     </button>
                     <button
@@ -87,7 +87,7 @@ export default function AdminConsole() {
                 <div className="bg-panel border border-line overflow-hidden relative">
                     <div className="card-head px-6 py-5 border-b border-line flex items-center justify-between">
                         <h3 className="text-[15px] font-black uppercase tracking-[-0.01em]">Knowledge Base</h3>
-                        <Link href="/learn" className="inline-flex items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-4 py-2 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-[#222b3a]">
+                        <Link href="/learn" className="inline-flex items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-4 py-2 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-elev">
                             Education Hub →
                         </Link>
                     </div>

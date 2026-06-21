@@ -75,7 +75,7 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
     // --- Shared style tokens ---
     const eyebrow = 'inline-block font-mono text-[10px] font-bold tracking-[0.1em] uppercase text-lime border border-line bg-bg px-3 py-1.5';
     const heading = 'text-[clamp(24px,4vw,34px)] font-black uppercase tracking-[-0.02em]';
-    const primaryBtn = 'inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed';
+    const primaryBtn = 'inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-accentink hover:bg-lime2 transition-colors active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed';
 
     // --- Step Components ---
 
@@ -285,7 +285,7 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                 href="https://calendly.com"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px"
+                className="inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-accentink hover:bg-lime2 transition-colors active:translate-y-px"
             >
                 Schedule Call Now
             </a>
@@ -304,7 +304,7 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                         <span className="lp-live-dot" />
                         <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-ink">{t('nav.strategySession')}</span>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 border border-line bg-panel2 text-mut hover:text-ink hover:bg-[#222b3a] flex items-center justify-center transition-colors">
+                    <button onClick={onClose} className="w-10 h-10 border border-line bg-panel2 text-mut hover:text-ink hover:bg-elev flex items-center justify-center transition-colors">
                         <X size={18} />
                     </button>
                 </div>

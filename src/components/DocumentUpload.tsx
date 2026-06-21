@@ -122,7 +122,7 @@ export default function DocumentUpload() {
                     </div>
                     <h3 className="text-xl font-black uppercase tracking-[-0.02em] text-ink mb-2">{isUploading ? 'Uploading...' : 'Drag & Drop Documents'}</h3>
                     <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.08em] mb-8">PDF, JPEG, or PNG up to 20MB</p>
-                    <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 bg-lime text-bg pointer-events-none">
+                    <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 bg-lime text-accentink pointer-events-none">
                         Browse Files
                     </button>
                 </div>

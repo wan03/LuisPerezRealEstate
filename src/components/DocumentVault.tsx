@@ -137,7 +137,7 @@ export default function DocumentVault() {
                             key={cat.id}
                             onClick={() => setFilter(cat.id)}
                             className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ${filter === cat.id
-                                    ? 'bg-lime text-bg'
+                                    ? 'bg-lime text-accentink'
                                     : 'text-mut hover:bg-panel2 hover:text-ink'
                                 }`}
                         >

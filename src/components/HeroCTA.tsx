@@ -13,7 +13,7 @@ export default function HeroCTA() {
             <LeadCaptureWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} source="Hero" />
             <button
                 onClick={() => setIsWizardOpen(true)}
-                className="inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px"
+                className="inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-lime text-accentink hover:bg-lime2 transition-colors active:translate-y-px"
             >
                 {t('hero.startRoadmap')} →
             </button>
