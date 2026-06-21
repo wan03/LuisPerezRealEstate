@@ -12,11 +12,33 @@
     },
     "hero": {
         "badge": "Nuevo 2026: La Experiencia Triada",
-        "heading": "CONQUISTA",
-        "headingHighlight": "HIGHLANDS.",
-        "subheading": "Bienes raíces de alto rendimiento para el Condado de Highlands. Recorridos estilo TikTok, cálculos PITI+ precisos y un plan de transacción completamente transparente.",
+        "serving": "Sirviendo Lakeland → Tampa Bay",
+        "heading": "Conoce el",
+        "headingHighlight": "número",
+        "headingTail": "primero.",
+        "subheading": "Bienes raíces de alto rendimiento para el corredor I-4. Recorridos estilo TikTok, cálculos PITI+ precisos y un plan de transacción completamente transparente.",
         "startRoadmap": "Inicia Tu Plan",
-        "exploreKnowledge": "Explora el Centro de Conocimiento"
+        "runEngine": "Calcular PITI+",
+        "browseListings": "Ver Propiedades",
+        "exploreKnowledge": "Explora el Centro de Conocimiento",
+        "samplePanelLabel": "Ejemplo · Lakeland $345K @ 6.6% · 20% enganche",
+        "samplePanelNote": "Homestead aplicado · millage de Polk County",
+        "samplePI": "Capital e Interés",
+        "sampleTax": "Impuesto a la Propiedad",
+        "sampleIns": "Seguro"
+    },
+    "process": {
+        "sectionLabel": "El Proceso",
+        "title": "Cómo",
+        "titleHighlight": "funciona.",
+        "step1Title": "Llamada Estratégica",
+        "step1Body": "15 minutos. Mapeamos tu presupuesto, cronograma y objetivos para el mercado del corredor I-4.",
+        "step2Title": "Tu Número",
+        "step2Body": "El motor PITI+ entrega tu pago mensual exacto — impuestos, seguro, tarifas CDD — antes de visitar.",
+        "step3Title": "Recorrido en Video",
+        "step3Body": "Tours estilo TikTok para que veas propiedades antes que lleguen a Zillow. Nunca pierdas un trato.",
+        "step4Title": "Cierre Limpio",
+        "step4Body": "Un plan de transacción transparente. Cada paso rastreado. Sin sorpresas el día del cierre."
     },
     "marketplace": {
         "badge": "Tours en Vivo",
@@ -32,21 +54,26 @@
     },
     "proof": {
         "badge": "La Prueba",
-        "title": "Confianza del",
-        "titleHighlight": "Highlands.",
+        "title": "Confianza en todo",
+        "titleHighlight": "Polk County.",
         "testimonialMain": "\"Luis no solo nos encontró una casa; aseguró nuestro futuro en Florida. Los números fueron exactos, y el plan hizo todo más fácil.\"",
         "story1Badge": "Ahorraron $4,200",
         "story1Name": "La Familia Miller",
-        "story1Subtitle": "Finca de 5 Acres",
+        "story1Subtitle": "Finca de 5 Acres · Mulberry",
         "story1Quote": "\"Mudarnos de otro estado era aterrador hasta que encontramos a Luis. Su calculadora PITI+ fue la única herramienta que calculó correctamente los honorarios CDD.\"",
         "story2Badge": "Cerrado en 21 Días",
         "story2Name": "Robert y Elena",
-        "story2Subtitle": "Retiro al Lago",
+        "story2Subtitle": "Frente al Lago · Winter Haven",
         "story2Quote": "\"El plan transparente de Luis significó que supimos exactamente qué estaba pasando cada día. Sin sorpresas, solo tranquilidad.\"",
         "story3Badge": "Estrategia 0% de Enganche",
         "story3Name": "Marcus J.",
-        "story3Subtitle": "Terreno de Inversión",
-        "story3Quote": "\"Como inversionista principiante, necesitaba a alguien que conociera las leyes de zonificación. Luis y su equipo son la autoridad en terrenos del Condado Highlands.\""
+        "story3Subtitle": "Terreno de Inversión · Bartow",
+        "story3Quote": "\"Como inversionista principiante, necesitaba a alguien que conociera las leyes de zonificación. Luis y su equipo son la autoridad en terrenos de Polk County.\"",
+        "title2": "Los",
+        "titleHighlight2": "resultados.",
+        "stat1Label": "Cierres · Polk County '25",
+        "stat2Label": "Días promedio al cierre",
+        "stat3Label": "Impuesto ahorrado / cliente"
     },
     "library": {
         "badge": "Conocimiento Gratis",
@@ -59,13 +86,13 @@
         "badge": "Tu Futuro Te Espera",
         "heading1": "Deja de Adivinar.",
         "heading2": "Empieza a Ganar.",
-        "description": "El mercado se mueve rápido. No te quedes atrás. Asegura tu plan de transacción personalizado y obtén la ventaja competitiva en el Condado Highlands.",
+        "description": "El mercado se mueve rápido. No te quedes atrás. Asegura tu plan de transacción personalizado y obtén la ventaja competitiva en Tampa Bay y Lakeland.",
         "button": "Agenda Tu Sesión Estratégica",
         "disclaimer": "Consulta Gratis de 15 Min • Sin Compromiso"
     },
     "blog": {
         "title": "Centro de Conocimiento",
-        "subtitle": "Masterclass de Bienes Raíces del Condado Highlands",
+        "subtitle": "Masterclass de Bienes Raíces de Lakeland y Tampa Bay",
         "searchPlaceholder": "Busca temas (CDD, Séptico, Cierre)...",
         "categories": "Categorías",
         "allGuides": "Todas las Guías",
@@ -74,7 +101,7 @@
         "taxes": "Impuestos",
         "marketTrends": "Tendencias del Mercado",
         "roadmapTitle": "¿Necesitas un Plan Personalizado?",
-        "roadmapDescription": "Conéctate con Luis para obtener un análisis personalizado del mercado de Highlands.",
+        "roadmapDescription": "Conéctate con Luis para obtener un análisis personalizado del mercado de Lakeland y Tampa Bay.",
         "goToDashboard": "Ir al Panel",
         "showing": "Mostrando:",
         "results": "resultados",
@@ -92,7 +119,7 @@
         "interestRate": "Tasa de Interés",
         "annualTax": "Impuesto Anual",
         "annualInsurance": "Seguro Anual",
-        "cddFee": "Tarifa CDD (mensual)",
+        "cddFee": "Tarifa CDD (anual)",
         "monthlyPayment": "Tu Pago Mensual",
         "breakdown": "Desglose Completo",
         "principal": "Capital e Interés",
@@ -135,7 +162,24 @@
         "successBody": "Luis y su equipo se comunicarán en 24 horas para agendar tu sesión estratégica personalizada.",
         "close": "Cerrar"
     },
+    "footer": {
+        "tagline": "Bienes raíces de alto rendimiento para el corredor I-4 — Lakeland, Winter Haven, Plant City, Bartow y Mulberry.",
+        "platform": "Plataforma",
+        "pitiEngine": "Motor PITI+",
+        "commandCenter": "Centro de Comando",
+        "markets": "Mercados",
+        "marketLakeland": "Lakeland",
+        "marketWinterHaven": "Winter Haven",
+        "marketPlantCity": "Plant City",
+        "marketBartow": "Bartow y Mulberry",
+        "connect": "Conecta",
+        "legal": "© 2026 Luis Perez Real Estate · Licenciado en Florida · REALTORS®",
+        "poweredBy": "Impulsado por Command Center™"
+    },
     "common": {
-        "languageName": "Español"
+        "languageName": "Español",
+        "more": "Más",
+        "fullHub": "Centro Completo",
+        "backToSite": "Volver al Sitio"
     }
 }

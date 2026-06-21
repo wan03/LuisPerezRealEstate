@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 import { LocaleProvider } from "@/lib/i18n";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Luis Perez Real Estate | Highlands County FL",
-  description: "High-performance real estate for Highlands County, FL. TikTok-style walkthroughs, precise PITI+ math, and a completely transparent transaction roadmap.",
+  title: "Luis Perez Real Estate | Lakeland & Tampa Bay FL",
+  description: "High-performance real estate for the I-4 corridor — Lakeland & Tampa Bay, FL. TikTok-style walkthroughs, precise PITI+ math, and a completely transparent transaction roadmap.",
   openGraph: {
-    title: "Luis Perez Real Estate | Highlands County FL",
-    description: "Own the Highlands. High-performance real estate with transparent PITI+ calculators and a bilingual team.",
+    title: "Luis Perez Real Estate | Lakeland & Tampa Bay FL",
+    description: "Own the I-4 corridor. High-performance real estate with transparent PITI+ calculators and a bilingual team.",
     type: "website",
     locale: "en_US",
   },
@@ -33,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${archivo.variable} ${spaceMono.variable} antialiased`}
       >
         <LocaleProvider>
           <ToastProvider>

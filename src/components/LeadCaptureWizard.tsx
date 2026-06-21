@@ -72,14 +72,19 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
         setStep('success');
     };
 
+    // --- Shared style tokens ---
+    const eyebrow = 'inline-block font-mono text-[10px] font-bold tracking-[0.1em] uppercase text-lime border border-line bg-bg px-3 py-1.5';
+    const heading = 'text-[clamp(24px,4vw,34px)] font-black uppercase tracking-[-0.02em]';
+    const primaryBtn = 'inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed';
+
     // --- Step Components ---
 
     const RoleStep = () => (
         <div className="space-y-6 animate-in slide-in-from-right fade-in duration-300">
-            <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight text-center">
+            <h2 className={`${heading} text-center`}>
                 {t('wizard.stepRole')}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {[
                     { id: 'buyer', icon: Home, label: t('wizard.buyer'), sub: 'I want to find a home' },
                     { id: 'seller', icon: DollarSign, label: t('wizard.seller'), sub: 'I want to cash out' },
@@ -88,13 +93,13 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                     <button
                         key={option.id}
                         onClick={() => handleNext('role', option.id)}
-                        className="flex flex-col items-center justify-center p-8 rounded-3xl border-2 border-slate-100 hover:border-indigo-600 hover:bg-indigo-50 transition-all group text-center"
+                        className="flex flex-col items-center justify-center p-8 border border-line bg-bg hover:border-lime transition-colors group text-center"
                     >
-                        <div className="w-16 h-16 rounded-full bg-slate-100 group-hover:bg-indigo-600 flex items-center justify-center mb-4 transition-colors">
-                            <option.icon className="text-slate-900 group-hover:text-white" size={24} />
+                        <div className="w-14 h-14 border border-line bg-panel2 group-hover:border-lime flex items-center justify-center mb-4 transition-colors">
+                            <option.icon className="text-mut group-hover:text-lime transition-colors" size={22} />
                         </div>
-                        <span className="font-black text-lg text-slate-900 uppercase tracking-wide">{option.label}</span>
-                        <span className="text-xs font-bold text-slate-400 mt-2">{option.sub}</span>
+                        <span className="font-black text-[15px] uppercase tracking-[-0.01em]">{option.label}</span>
+                        <span className="font-mono text-[10px] text-mut mt-2 uppercase tracking-[0.06em]">{option.sub}</span>
                     </button>
                 ))}
             </div>
@@ -104,13 +109,13 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
     const DetailsStep = () => (
         <div className="space-y-8 animate-in slide-in-from-right fade-in duration-300">
             <div className="text-center">
-                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full">Step 2 of 4</span>
-                <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mt-4">
+                <span className={eyebrow}>Step 2 of 4</span>
+                <h2 className={`${heading} mt-4`}>
                     {formData.role === 'seller' ? 'When do you need to move?' : 'When are you hoping to move in?'}
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {['ASAP', '1-3 Months', 'Just Browsing'].map((time) => (
                     <button
                         key={time}
@@ -118,27 +123,27 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                             setFormData(prev => ({ ...prev, timeline: time }));
                             setStep('financials');
                         }}
-                        className="py-6 rounded-2xl border-2 border-slate-100 font-bold text-lg hover:border-indigo-600 hover:text-indigo-600 transition-all"
+                        className="py-6 border border-line bg-bg font-mono text-[12px] font-bold uppercase tracking-[0.06em] text-ink hover:border-lime hover:text-lime transition-colors"
                     >
                         {time}
                     </button>
                 ))}
             </div>
 
-            <div className="pt-8 border-t border-slate-100">
-                <label className="block text-sm font-black text-slate-500 uppercase tracking-widest mb-3">
-                    What's your main motivation? <span className="text-slate-300 font-normal normal-case">(Optional)</span>
+            <div className="pt-8 border-t border-line">
+                <label className="block font-mono text-[10px] font-bold text-mut uppercase tracking-[0.1em] mb-3">
+                    What's your main motivation? <span className="text-mut2 font-normal normal-case">(Optional)</span>
                 </label>
                 <textarea
                     placeholder={formData.role === 'seller' ? "e.g. Downsizing, Job Relocation..." : "e.g. Growing family, Retirement..."}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                    className="lp-input p-4 text-[14px]"
                     rows={2}
                     value={formData.motivation}
                     onChange={(e) => setFormData(p => ({ ...p, motivation: e.target.value }))}
                 />
                 <button
                     onClick={() => setStep('financials')}
-                    className="mt-4 w-full py-4 text-center font-bold text-slate-400 hover:text-slate-900 text-sm transition-colors"
+                    className="mt-4 w-full py-4 text-center font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-mut hover:text-ink transition-colors"
                 >
                     Skip to Financials
                 </button>
@@ -149,8 +154,8 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
     const FinancialsStep = () => (
         <div className="space-y-8 animate-in slide-in-from-right fade-in duration-300">
             <div className="text-center">
-                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full">Step 3 of 4</span>
-                <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mt-4">
+                <span className={eyebrow}>Step 3 of 4</span>
+                <h2 className={`${heading} mt-4`}>
                     Let's talk numbers.
                 </h2>
             </div>
@@ -158,9 +163,9 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
             {formData.role === 'buyer' || formData.role === 'investor' ? (
                 <div className="space-y-6 max-w-md mx-auto">
                     <div>
-                        <label className="block text-sm font-black text-slate-500 uppercase tracking-widest mb-3">{t('wizard.priceRange')}</label>
+                        <label className="block font-mono text-[10px] font-bold text-mut uppercase tracking-[0.1em] mb-3">{t('wizard.priceRange')}</label>
                         <select
-                            className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                            className="lp-input p-4 text-[14px]"
                             onChange={(e) => {
                                 setFormData(p => ({ ...p, priceRange: e.target.value }));
                                 // Auto advance not ideal here as there's another q
@@ -175,8 +180,8 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-black text-slate-500 uppercase tracking-widest mb-3">{t('wizard.preApproved')}</label>
-                        <div className="grid grid-cols-2 gap-4">
+                        <label className="block font-mono text-[10px] font-bold text-mut uppercase tracking-[0.1em] mb-3">{t('wizard.preApproved')}</label>
+                        <div className="grid grid-cols-2 gap-3">
                             {['Yes', 'No / Not Yet'].map((opt) => (
                                 <button
                                     key={opt}
@@ -184,7 +189,7 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                                         setFormData(p => ({ ...p, preApproved: opt }));
                                         // Wait for both? Or just let them click next
                                     }}
-                                    className={`py-3 rounded-xl border-2 font-bold ${formData.preApproved === opt ? 'border-indigo-600 bg-indigo-50 text-indigo-600' : 'border-slate-100'}`}
+                                    className={`py-3 border font-mono text-[12px] font-bold uppercase tracking-[0.06em] transition-colors ${formData.preApproved === opt ? 'border-lime bg-bg text-lime' : 'border-line text-mut hover:border-mut hover:text-ink'}`}
                                 >
                                     {opt}
                                 </button>
@@ -194,27 +199,27 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                     <button
                         disabled={!formData.priceRange}
                         onClick={() => setStep('contact')}
-                        className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all mt-4"
+                        className={`${primaryBtn} mt-4`}
                     >
-                        Next Step <ArrowRight size={16} className="inline ml-2" />
+                        Next Step <ArrowRight size={16} />
                     </button>
                 </div>
             ) : (
                 <div className="space-y-6 max-w-md mx-auto">
                     <div>
-                        <label className="block text-sm font-black text-slate-500 uppercase tracking-widest mb-3">{t('wizard.estimatedValue')}</label>
+                        <label className="block font-mono text-[10px] font-bold text-mut uppercase tracking-[0.1em] mb-3">{t('wizard.estimatedValue')}</label>
                         <input
                             type="text"
                             placeholder="e.g. $350,000"
-                            className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                            className="lp-input p-4 text-[14px]"
                             onChange={(e) => setFormData(p => ({ ...p, estimatedValue: e.target.value }))}
                         />
                     </div>
                     <button
                         onClick={() => setStep('contact')}
-                        className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-800 transition-all"
+                        className={primaryBtn}
                     >
-                        Next Step <ArrowRight size={16} className="inline ml-2" />
+                        Next Step <ArrowRight size={16} />
                     </button>
                 </div>
             )}
@@ -224,19 +229,19 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
     const ContactStep = () => (
         <form onSubmit={handleSubmit} className="space-y-6 max-w-md mx-auto animate-in slide-in-from-right fade-in duration-300">
             <div className="text-center">
-                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full">Final Step</span>
-                <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight mt-4">
+                <span className={eyebrow}>Final Step</span>
+                <h2 className={`${heading} mt-4`}>
                     Unlock Your Strategy
                 </h2>
-                <p className="text-slate-500 font-medium mt-2">Where should we send your personalized roadmap?</p>
+                <p className="text-mut font-medium text-[14px] mt-2">Where should we send your personalized roadmap?</p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
                 <input
                     required
                     type="text"
                     placeholder={t('wizard.name')}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                    className="lp-input p-4 text-[14px]"
                     value={formData.name}
                     onChange={(e) => setFormData(p => ({ ...p, name: e.target.value }))}
                 />
@@ -244,14 +249,14 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
                     required
                     type="email"
                     placeholder={t('wizard.email')}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                    className="lp-input p-4 text-[14px]"
                     value={formData.email}
                     onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                 />
                 <input
                     type="tel"
                     placeholder={`${t('wizard.phone')} (Optional)`}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+                    className="lp-input p-4 text-[14px]"
                     value={formData.phone}
                     onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
                 />
@@ -260,47 +265,47 @@ export default function LeadCaptureWizard({ isOpen, onClose, source = 'General' 
             <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black text-lg uppercase tracking-widest hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all flex items-center justify-center gap-2"
+                className={primaryBtn}
             >
-                {isSubmitting ? t('wizard.sending') : t('wizard.submit')} <ArrowRight />
+                {isSubmitting ? t('wizard.sending') : t('wizard.submit')} <ArrowRight size={16} />
             </button>
         </form>
     );
 
     const SuccessStep = () => (
         <div className="text-center py-12 animate-in zoom-in fade-in duration-300">
-            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
-                <Check size={48} />
+            <div className="w-20 h-20 border border-lime bg-bg flex items-center justify-center mx-auto mb-6 text-lime">
+                <Check size={40} />
             </div>
-            <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-4">{t('wizard.successTitle')}</h2>
-            <p className="text-xl text-slate-500 font-medium max-w-md mx-auto mb-10">
+            <h2 className={`${heading} mb-4`}>{t('wizard.successTitle')}</h2>
+            <p className="text-lg text-mut font-medium max-w-md mx-auto mb-10">
                 {t('wizard.successBody')}
             </p>
             <a
                 href="https://calendly.com"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg uppercase tracking-widest hover:bg-slate-800 shadow-xl"
+                className="inline-flex items-center justify-center gap-2 w-full font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-4 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px"
             >
                 Schedule Call Now
             </a>
-            <button onClick={onClose} className="mt-6 text-slate-400 font-bold uppercase tracking-widest text-xs hover:text-slate-600">
+            <button onClick={onClose} className="mt-6 font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-mut hover:text-ink transition-colors">
                 {t('wizard.close')}
             </button>
         </div>
     );
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md">
-            <div className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden relative max-h-[90vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-bg/80 backdrop-blur">
+            <div className="corner-brackets bg-panel border border-line w-full max-w-2xl overflow-hidden relative max-h-[90vh] flex flex-col">
                 {/* Header */}
-                <div className="p-6 border-b border-slate-100 flex items-center justify-between shrink-0">
-                    <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-indigo-600 animate-pulse" />
-                        <span className="font-black text-xs uppercase tracking-widest text-indigo-900">{t('nav.strategySession')}</span>
+                <div className="p-6 border-b border-line flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-2.5">
+                        <span className="lp-live-dot" />
+                        <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-ink">{t('nav.strategySession')}</span>
                     </div>
-                    <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-900 flex items-center justify-center transition-all">
-                        <X size={20} />
+                    <button onClick={onClose} className="w-10 h-10 border border-line bg-panel2 text-mut hover:text-ink hover:bg-[#222b3a] flex items-center justify-center transition-colors">
+                        <X size={18} />
                     </button>
                 </div>
 

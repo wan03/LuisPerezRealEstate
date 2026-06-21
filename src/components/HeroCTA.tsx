@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
 import LeadCaptureWizard from '@/components/LeadCaptureWizard';
 import { useTranslation } from '@/lib/i18n';
 
@@ -14,9 +13,9 @@ export default function HeroCTA() {
             <LeadCaptureWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} source="Hero" />
             <button
                 onClick={() => setIsWizardOpen(true)}
-                className="bg-white text-slate-900 px-8 py-5 rounded-2xl font-black text-lg hover:bg-slate-100 transition-all text-center flex items-center justify-center gap-2 group"
+                className="inline-flex items-center justify-center gap-2 font-extrabold text-[14px] tracking-[0.025em] uppercase px-6 py-[15px] bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px"
             >
-                {t('hero.startRoadmap')} <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                {t('hero.startRoadmap')} →
             </button>
         </>
     );

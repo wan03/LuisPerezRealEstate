@@ -1,43 +1,254 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+  ============================================================
+  LUIS PEREZ RE — "DATA BOLD" DESIGN SYSTEM
+  ------------------------------------------------------------
+  Dark theme by default. All surface/brand colors are declared
+  as raw CSS custom properties on :root so a future light theme
+  can be enabled simply by overriding these vars under a
+  `.theme-light` (or [data-theme="light"]) selector — no JSX or
+  component changes required. The semantic palette is mapped
+  into Tailwind's theme below via @theme inline so utilities
+  like `bg-panel`, `border-line`, `text-mut`, `text-lime` work.
+  ============================================================
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --bg: #0a0c10;
+  --bg2: #0f131a;
+  --panel: #141923;
+  --panel2: #1b212d;
+  --line: #262d3a;
+
+  /* Text */
+  --ink: #eef1f6;
+  --mut: #8a94a6;
+  --mut2: #5b6576;
+
+  /* Brand / accents */
+  --blue: #3b62ff;
+  --blue2: #5b7dff;
+  --lime: #c4f24a;
+  --org: #ff6a3d;
+
+  /* Back-compat aliases (some code references background/foreground) */
+  --background: var(--bg);
+  --foreground: var(--ink);
 }
 
 @theme inline {
+  /* Surfaces */
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg2);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel2);
+  --color-line: var(--line);
+
+  /* Text */
+  --color-ink: var(--ink);
+  --color-mut: var(--mut);
+  --color-mut2: var(--mut2);
+
+  /* Brand */
+  --color-blue: var(--blue);
+  --color-blue2: var(--blue2);
+  --color-lime: var(--lime);
+  --color-org: var(--org);
+
+  /* Back-compat */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Fonts (wired in layout.tsx via next/font) */
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-space-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
+::selection {
+  background: var(--lime);
+  color: var(--bg);
+}
+
+/*
+  ----------------------------------------------------------------
+  REUSABLE PRIMITIVES
+  Kept in CSS for patterns that are awkward as raw utilities
+  (decorative overlays, animations, native input resets).
+  ----------------------------------------------------------------
+*/
+
+/* Logo mark — angled-corner badge */
+.lp-mark {
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 78% 100%, 0 100%);
+  flex: none;
+}
+
+/* Decorative blueprint grid overlay */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 54px 54px;
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 68% 30%, #000, transparent 72%);
+  mask-image: radial-gradient(ellipse 80% 80% at 68% 30%, #000, transparent 72%);
+}
+
+/* Lime corner brackets on a panel */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+.corner-brackets::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--lime);
+  border-left: 2px solid var(--lime);
+}
+.corner-brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--lime);
+  border-right: 2px solid var(--lime);
+}
+
+/* Native number/text input reset for the dark mono fields */
+.lp-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-space-mono), monospace;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.18s;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.lp-input::-webkit-outer-spin-button,
+.lp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.lp-input::placeholder {
+  color: var(--mut2);
+  font-weight: 400;
+}
+.lp-input:focus {
+  border-color: var(--lime);
+}
+
+/* Progress track */
+.lp-track {
+  height: 6px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.lp-track > i {
+  display: block;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* ---------------- Animations ---------------- */
 @keyframes slide-in {
   from {
     transform: translateX(100%);
     opacity: 0;
   }
-
   to {
     transform: translateX(0);
     opacity: 1;
   }
 }
-
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
+}
+
+@keyframes lp-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.lp-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+  animation: lp-blink 1.8s infinite;
+}
+
+@keyframes lp-tickscroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.lp-ticker-track {
+  display: flex;
+  gap: 44px;
+  white-space: nowrap;
+  width: max-content;
+  animation: lp-tickscroll 32s linear infinite;
+}
+
+@keyframes lp-spin {
+  to { transform: rotate(360deg); }
+}
+.lp-spinner {
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  border-top-color: var(--lime);
+  animation: lp-spin 0.8s linear infinite;
+}
+
+/* Scroll reveal (toggled by the <Reveal> client component) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .lp-ticker-track,
+  .lp-live-dot,
+  .lp-spinner { animation: none; }
+  html { scroll-behavior: auto; }
 }

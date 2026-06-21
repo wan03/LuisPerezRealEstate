@@ -42,50 +42,75 @@ export default function Sidebar() {
     }, [supabase]);
 
     return (
-        <div className="w-64 bg-slate-900 h-screen flex flex-col text-white sticky top-0">
+        <div className="w-64 bg-bg2 border-r border-line h-screen flex flex-col text-ink sticky top-0">
             {/* Logo/Identity */}
-            <div className="p-6 border-b border-slate-800">
+            <div className="p-5 border-b border-line">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-sm shadow-lg shadow-indigo-500/20">
-                        {initials || <Loader2 size={16} className="animate-spin" />}
-                    </div>
-                    <div>
-                        <p className="font-black tracking-tight leading-none">{agentName || 'Loading...'}</p>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">{role || 'pro'} portal</p>
+                    <span className="lp-mark w-[38px] h-[38px] text-[14px] flex-none">LP</span>
+                    <div className="leading-none">
+                        <div className="font-black text-[15px] tracking-[-0.025em] uppercase">
+                            Luis Perez<span className="text-blue2">/RE</span>
+                        </div>
+                        <div className="font-mono text-[10px] text-mut mt-[3px]">Lakeland · Tampa Bay</div>
                     </div>
                 </div>
             </div>
 
+            {/* Role block */}
+            <div className="mx-5 my-4 bg-panel border border-line px-3 py-2.5">
+                <div className="font-mono text-[9px] tracking-[0.12em] uppercase text-mut2">Signed in as</div>
+                <div className="text-[13px] font-extrabold uppercase tracking-[-0.01em] mt-[3px] flex items-center gap-2">
+                    {agentName || (
+                        <span className="inline-flex items-center gap-2 text-mut">
+                            <Loader2 size={14} className="lp-spinner" style={{ width: 14, height: 14 }} /> Loading
+                        </span>
+                    )}
+                </div>
+                <div className="flex items-center gap-1.5 font-mono text-[9px] text-lime mt-1">
+                    <span className="lp-live-dot" /> {role || 'pro'} portal
+                </div>
+            </div>
+
             {/* Navigation */}
-            <nav className="flex-1 p-4 space-y-2">
+            <nav className="flex-1 px-3 py-1.5">
+                <div className="font-mono text-[9px] tracking-[0.14em] uppercase text-mut2 px-2 pb-2 pt-1">Main</div>
                 {NAV_ITEMS.map(item => {
                     const isActive = pathname === item.href;
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-all ${isActive
-                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
-                                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                            className={`relative flex items-center gap-2.5 px-2.5 py-2.5 mb-0.5 font-mono text-[11px] font-bold tracking-[0.08em] uppercase transition-colors ${isActive
+                                ? 'text-ink bg-panel2 before:content-[""] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-[2px] before:bg-lime'
+                                : 'text-mut hover:text-ink hover:bg-panel'
                                 }`}
                         >
-                            <item.icon size={20} />
+                            <item.icon size={16} className="flex-none" />
                             {item.label}
                         </Link>
                     );
                 })}
             </nav>
 
-            {/* Sign Out */}
-            <div className="p-4 border-t border-slate-800">
+            {/* User + Sign Out */}
+            <div className="p-3 border-t border-line mt-auto">
+                <div className="flex items-center gap-2.5 px-2 py-2 mb-1">
+                    <div className="w-8 h-8 bg-lime text-bg flex items-center justify-center font-black text-[12px] flex-none">
+                        {initials || '??'}
+                    </div>
+                    <div className="leading-none min-w-0">
+                        <p className="font-extrabold text-[13px] text-ink truncate">{agentName || 'Loading...'}</p>
+                        <p className="font-mono text-[9px] text-mut tracking-[0.1em] uppercase mt-1">{role || 'agent'}</p>
+                    </div>
+                </div>
                 <button
                     onClick={async () => {
                         await supabase.auth.signOut();
                         window.location.href = '/login';
                     }}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-all w-full font-bold text-sm"
+                    className="flex items-center gap-2 px-2.5 py-2.5 text-mut2 hover:text-org transition-colors w-full font-mono text-[11px] font-bold tracking-[0.08em] uppercase"
                 >
-                    <LogOut size={20} />
+                    <LogOut size={16} />
                     Sign Out
                 </button>
             </div>

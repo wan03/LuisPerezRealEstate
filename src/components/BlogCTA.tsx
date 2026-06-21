@@ -12,9 +12,9 @@ export default function BlogCTA() {
             <LeadCaptureWizard isOpen={isWizardOpen} onClose={() => setIsWizardOpen(false)} source="Blog Post" />
             <button
                 onClick={() => setIsWizardOpen(true)}
-                className="bg-indigo-600 text-white px-10 py-5 rounded-2xl font-black hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center gap-2 whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-6 py-4 bg-lime text-bg hover:bg-[#d2ff56] transition-colors active:translate-y-px whitespace-nowrap"
             >
-                Get a Market Analysis <ArrowRight />
+                Get a Market Analysis <ArrowRight size={16} />
             </button>
         </>
     );

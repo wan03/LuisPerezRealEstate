@@ -99,7 +99,7 @@ export default function TemplatesPage() {
 
     if (loading) {
         return (
-            <div className="p-8 max-w-7xl mx-auto space-y-8">
+            <div className="flex-1 bg-bg text-ink p-7 max-w-7xl mx-auto w-full space-y-8">
                 <CommandCenterSkeleton />
             </div>
         );
@@ -107,11 +107,11 @@ export default function TemplatesPage() {
 
     if (error) {
         return (
-            <div className="p-8 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[50vh] gap-4">
-                <AlertCircle className="w-16 h-16 text-red-500" />
-                <h2 className="text-xl font-black text-slate-800 tracking-tight text-center">Failed to load templates</h2>
-                <p className="text-slate-500 max-w-md text-center">{error}</p>
-                <button onClick={fetchTemplates} className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-indigo-700 transition">
+            <div className="flex-1 bg-bg text-ink p-7 max-w-7xl mx-auto w-full flex flex-col items-center justify-center min-h-[50vh] gap-4">
+                <AlertCircle className="w-16 h-16 text-org" />
+                <h2 className="text-xl font-black uppercase tracking-[-0.03em] text-center">Failed to load templates</h2>
+                <p className="text-mut max-w-md text-center font-mono text-[12px]">{error}</p>
+                <button onClick={fetchTemplates} className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">
                     <RefreshCw size={16} /> Try Again
                 </button>
             </div>
@@ -119,49 +119,50 @@ export default function TemplatesPage() {
     }
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="flex-1 bg-bg text-ink p-7 max-w-7xl mx-auto w-full space-y-7">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        <Mail className="text-indigo-600" size={32} />
-                        Email Templates
+                    <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">04 / Resources</p>
+                    <h1 className="text-2xl font-black uppercase tracking-[-0.03em] flex items-center gap-3 mt-1">
+                        <Mail className="text-lime" size={28} />
+                        Email <span className="text-lime">Templates</span>
                     </h1>
-                    <p className="text-slate-500 font-medium mt-2 max-w-2xl">
+                    <p className="text-mut font-mono text-[11px] mt-2 max-w-2xl">
                         Manage the transactional emails sent to clients and agents when transaction milestones are reached.
                     </p>
                 </div>
             </div>
 
             {/* Variables Cheat Sheet */}
-            <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
-                <h3 className="text-indigo-900 font-black tracking-tight mb-3">Available Variables</h3>
-                <p className="text-sm text-indigo-700 mb-4">Use these variables in your subject or body. They will be dynamically replaced when the email is sent.</p>
+            <div className="bg-panel border border-line p-6">
+                <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-lime mb-2">Available Variables</p>
+                <p className="text-[13px] text-mut mb-4">Use these variables in your subject or body. They will be dynamically replaced when the email is sent.</p>
                 <div className="flex flex-wrap gap-3">
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Client's Full Name">{"{{ client_name }}"}</code>
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="Listing Address">{"{{ property_address }}"}</code>
-                    <code className="bg-white text-indigo-600 font-black px-3 py-1.5 rounded-lg text-sm border border-indigo-100 shadow-sm cursor-copy hover:scale-105 transition-transform" title="New Transaction Status">{"{{ new_status }}"}</code>
+                    <code className="bg-bg2 text-blue2 font-mono font-bold px-3 py-1.5 text-[13px] border border-line cursor-copy hover:border-lime transition-colors" title="Client's Full Name">{"{{ client_name }}"}</code>
+                    <code className="bg-bg2 text-blue2 font-mono font-bold px-3 py-1.5 text-[13px] border border-line cursor-copy hover:border-lime transition-colors" title="Listing Address">{"{{ property_address }}"}</code>
+                    <code className="bg-bg2 text-blue2 font-mono font-bold px-3 py-1.5 text-[13px] border border-line cursor-copy hover:border-lime transition-colors" title="New Transaction Status">{"{{ new_status }}"}</code>
                 </div>
             </div>
 
             {/* Templates List */}
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-4">
                 {templates.map(template => {
                     const isEditing = editingId === template.id;
 
                     return (
-                        <div key={template.id} className={`bg-white rounded-3xl p-6 md:p-8 border shadow-sm transition-all duration-300 ${!template.is_active ? 'border-slate-200 opacity-75' : isEditing ? 'border-indigo-300 ring-4 ring-indigo-50' : 'border-slate-200 hover:border-indigo-200 hover:shadow-md'}`}>
+                        <div key={template.id} className={`bg-panel p-6 md:p-7 border transition-colors ${!template.is_active ? 'border-line opacity-75' : isEditing ? 'border-lime' : 'border-line hover:border-lime'}`}>
 
                             <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h2 className="text-xl font-black text-slate-900">{template.name}</h2>
-                                        <span className={`px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-md border ${template.is_active ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
+                                        <h2 className="text-lg font-extrabold uppercase tracking-[-0.01em] text-ink">{template.name}</h2>
+                                        <span className={`px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.06em] ${template.is_active ? 'bg-lime/10 text-lime' : 'bg-mut2/15 text-mut'}`}>
                                             {template.is_active ? 'Active' : 'Disabled'}
                                         </span>
                                     </div>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                        Trigger: <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">{template.status_trigger}</span>
+                                    <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.08em]">
+                                        Trigger: <span className="text-blue2 bg-blue/10 px-2 py-0.5">{template.status_trigger}</span>
                                     </p>
                                 </div>
 
@@ -170,13 +171,13 @@ export default function TemplatesPage() {
                                         <>
                                             <button
                                                 onClick={() => toggleActive(template.id, template.is_active)}
-                                                className={`flex-1 md:flex-none px-4 py-2 rounded-xl font-bold uppercase tracking-wider text-xs border transition-all ${template.is_active ? 'border-slate-200 text-slate-600 hover:bg-slate-50' : 'border-emerald-200 text-emerald-700 bg-emerald-50 hover:bg-emerald-100'}`}
+                                                className={`flex-1 md:flex-none px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px ${template.is_active ? 'bg-panel2 text-ink hover:bg-[#222b3a]' : 'bg-lime/10 text-lime hover:bg-lime/20'}`}
                                             >
                                                 {template.is_active ? 'Disable' : 'Enable'}
                                             </button>
                                             <button
                                                 onClick={() => handleEdit(template)}
-                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 px-4 py-2 rounded-xl font-bold uppercase tracking-wider text-xs transition-all"
+                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-blue text-white hover:bg-blue2 px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
                                             >
                                                 <Edit3 size={14} /> Edit
                                             </button>
@@ -185,13 +186,13 @@ export default function TemplatesPage() {
                                         <>
                                             <button
                                                 onClick={handleCancel}
-                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl font-bold uppercase tracking-wider text-xs transition-all"
+                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-panel2 text-ink hover:bg-[#222b3a] px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
                                             >
                                                 <X size={14} /> Cancel
                                             </button>
                                             <button
                                                 onClick={() => handleSave(template.id)}
-                                                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white border border-transparent px-4 py-2 rounded-xl font-bold uppercase tracking-wider text-xs transition-all"
+                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-lime text-bg hover:bg-[#d2ff56] px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
                                             >
                                                 <Save size={14} /> Save
                                             </button>
@@ -202,38 +203,38 @@ export default function TemplatesPage() {
 
                             {/* Editor View */}
                             {isEditing ? (
-                                <div className="space-y-4 animate-in fade-in slide-in-from-top-2">
+                                <div className="space-y-4">
                                     <div>
-                                        <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Subject Line</label>
+                                        <label className="block font-mono text-[10px] text-mut2 uppercase tracking-[0.1em] mb-2">Subject Line</label>
                                         <input
                                             type="text"
                                             value={editSubject}
                                             onChange={(e) => setEditSubject(e.target.value)}
-                                            className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-mono text-sm"
+                                            className="lp-input p-4 text-[13px]"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">HTML Body</label>
+                                        <label className="block font-mono text-[10px] text-mut2 uppercase tracking-[0.1em] mb-2">HTML Body</label>
                                         <textarea
                                             value={editBody}
                                             onChange={(e) => setEditBody(e.target.value)}
                                             rows={8}
-                                            className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-mono text-sm leading-relaxed resize-y"
+                                            className="lp-input p-4 text-[13px] leading-relaxed resize-y"
                                         />
                                     </div>
                                 </div>
                             ) : (
                                 /* Read-only View */
                                 <div className="space-y-4">
-                                    <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
-                                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Subject</p>
-                                        <p className="text-slate-900 font-medium font-mono text-sm">{template.subject}</p>
+                                    <div className="bg-bg2 border border-line p-4">
+                                        <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.1em] mb-1.5">Subject</p>
+                                        <p className="text-ink font-mono text-[13px]">{template.subject}</p>
                                     </div>
-                                    <div className="bg-slate-50 border border-slate-100 rounded-xl p-4">
-                                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Preview</p>
+                                    <div className="bg-bg2 border border-line p-4">
+                                        <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.1em] mb-3">Preview</p>
                                         <div
-                                            className="prose prose-sm max-w-none text-slate-700 font-medium bg-white p-6 rounded-lg border border-slate-200 shadow-sm"
-                                            dangerouslySetInnerHTML={{ __html: template.body_html || '<p class="text-slate-400 italic">Empty body...</p>' }}
+                                            className="prose prose-sm prose-invert max-w-none text-mut bg-bg p-6 border border-line"
+                                            dangerouslySetInnerHTML={{ __html: template.body_html || '<p class="text-mut2 italic">Empty body...</p>' }}
                                         />
                                     </div>
                                 </div>
@@ -244,8 +245,8 @@ export default function TemplatesPage() {
                 })}
 
                 {templates.length === 0 && (
-                    <div className="bg-white rounded-3xl p-12 text-center border shadow-sm">
-                        <p className="text-slate-500 font-medium">No templates found in the database. Please run the database migration.</p>
+                    <div className="bg-panel p-12 text-center border border-line">
+                        <p className="text-mut font-mono text-[12px]">No templates found in the database. Please run the database migration.</p>
                     </div>
                 )}
             </div>
