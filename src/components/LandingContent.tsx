@@ -124,7 +124,7 @@ export default function LandingContent({ listings, articles }: { listings: Listi
                                 id: listing.id,
                                 title: listing.title,
                                 price: Number(listing.price),
-                                location: 'Highlands County, FL',
+                                location: 'Polk County, FL',
                                 isVacantLand: listing.is_vacant_land ?? false,
                                 zoning: listing.zoning_type ?? undefined,
                                 floodZone: listing.flood_zone ?? undefined,

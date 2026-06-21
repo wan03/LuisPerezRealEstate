@@ -139,7 +139,7 @@ export default function ClientsPage() {
                         <h1 className="text-2xl font-black uppercase tracking-[-0.03em] leading-none mt-1">
                             Active <span className="text-lime">Pipeline</span>
                         </h1>
-                        <p className="font-mono text-[11px] text-mut mt-1.5">Highlands County, FL</p>
+                        <p className="font-mono text-[11px] text-mut mt-1.5">Lakeland · Tampa Bay</p>
                     </div>
                 </div>
 

@@ -19,7 +19,7 @@ export default function Footer() {
                                 <div className="font-black text-[16px] tracking-[-0.025em] uppercase leading-none">
                                     Luis Perez<span className="text-blue2">/RE</span>
                                 </div>
-                                <div className="font-mono text-[10px] text-mut mt-[3px]">Highlands County, FL</div>
+                                <div className="font-mono text-[10px] text-mut mt-[3px]">Lakeland · Tampa Bay</div>
                             </div>
                         </Link>
                         <p className="font-mono text-[11px] text-mut leading-[1.75] mt-3.5 max-w-[28ch]">
@@ -39,10 +39,10 @@ export default function Footer() {
                     {/* Markets */}
                     <div>
                         <h5 className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut2 mb-3.5">{t('footer.markets')}</h5>
-                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketSebring')}</span>
-                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketAvonPark')}</span>
-                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketLakePlacid')}</span>
-                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketSurrounding')}</span>
+                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketLakeland')}</span>
+                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketWinterHaven')}</span>
+                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketPlantCity')}</span>
+                        <span className="block text-[13px] font-semibold text-mut mb-2.5">{t('footer.marketBartow')}</span>
                     </div>
 
                     {/* Connect */}

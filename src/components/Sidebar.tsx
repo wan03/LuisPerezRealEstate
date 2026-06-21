@@ -51,7 +51,7 @@ export default function Sidebar() {
                         <div className="font-black text-[15px] tracking-[-0.025em] uppercase">
                             Luis Perez<span className="text-blue2">/RE</span>
                         </div>
-                        <div className="font-mono text-[10px] text-mut mt-[3px]">Highlands County, FL</div>
+                        <div className="font-mono text-[10px] text-mut mt-[3px]">Lakeland · Tampa Bay</div>
                     </div>
                 </div>
             </div>

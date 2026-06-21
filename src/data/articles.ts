@@ -50,7 +50,7 @@ export const ARTICLES: Article[] = [
         readTime: '8 min read',
         content: `
 <h2>Vacant Land: The Septic and Well Deep Dive</h2>
-<p>In Highlands County, many lots require private septic systems and wells.</p>
+<p>In Polk County, many lots require private septic systems and wells.</p>
 <h3>Septic Tank Inspection</h3>
 <p>Before closing on a lot, you MUST have a soil perk test. This determines if the land can drain properly.</p>
 <h3>Costs to Budget</h3>

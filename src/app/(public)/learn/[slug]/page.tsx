@@ -83,7 +83,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                             <span className="lp-mark w-10 h-10 text-[13px]">LP</span>
                             <div>
                                 <p className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-ink">{article.author || 'Luis Perez'}</p>
-                                <p className="font-mono text-[10px] text-mut uppercase tracking-[0.1em] mt-0.5">Highlands County Authority</p>
+                                <p className="font-mono text-[10px] text-mut uppercase tracking-[0.1em] mt-0.5">Polk County Authority</p>
                             </div>
                         </div>
                         {article.source_url && (
@@ -125,7 +125,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <div className="corner-brackets mt-20 p-10 md:p-12 bg-panel border border-line flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="max-w-md">
                         <h3 className="text-2xl font-black uppercase tracking-[-0.02em] mb-2">Ready to take the <span className="text-lime">next step?</span></h3>
-                        <p className="text-mut font-medium text-[14px] leading-relaxed">Get a custom property report and transaction roadmap for Highlands County.</p>
+                        <p className="text-mut font-medium text-[14px] leading-relaxed">Get a custom property report and transaction roadmap for Lakeland & Tampa Bay.</p>
                     </div>
                     <BlogCTA />
                 </div>

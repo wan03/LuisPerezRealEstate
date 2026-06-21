@@ -36,7 +36,7 @@ export default function TriadChat({ userRole = 'client', roomId }: { userRole?: 
                         <div className="w-9 h-9 border-2 border-bg2 bg-panel2 text-ink flex items-center justify-center"><Shield size={18} /></div>
                     </div>
                     <div>
-                        <h3 className="font-black uppercase tracking-[-0.02em] leading-none mb-1.5">Highlands Triad Chat</h3>
+                        <h3 className="font-black uppercase tracking-[-0.02em] leading-none mb-1.5">Triad Chat</h3>
                         <p className="flex items-center gap-1.5 font-mono text-[10px] tracking-[0.1em] uppercase text-mut">
                             {roomId && <span className="lp-live-dot" />} Active Thread
                         </p>

@@ -9,15 +9,16 @@ import React from 'react';
  * (the track translates by -50%).
  */
 const ITEMS = [
-    'Sebring ▴ +6.2% YoY',
-    'Avon Park ▴ +4.8%',
+    'Lakeland ▴ +6.2% YoY',
+    'Winter Haven ▴ +4.8%',
     'Median $342K',
-    'Lake Placid ▴ +5.1%',
-    'Lakefront ▴ +9.3%',
+    'Plant City ▴ +5.1%',
+    'Bartow Land ▴ +9.3%',
     'Avg DOM 27d',
-    'Highlands Acreage ▴ +11%',
-    'Polk Border Active',
-    'Highlands County Growth',
+    'Auburndale ▴ +3.9%',
+    'Mulberry Acreage ▴ +11%',
+    'I-4 Corridor Active',
+    'Polk County #1 Growth',
     'New Listings Daily',
 ];
 

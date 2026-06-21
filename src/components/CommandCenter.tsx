@@ -41,7 +41,7 @@ const TRANSACTION_STEPS = [
 ];
 
 const UI_MILESTONES = [
-    { id: 'house_hunting', title: 'Discovery & Listing Search', icon_name: 'Search', description: 'Browsing matches in Highlands County.', learn_more_slug: 'discovery-guide', order: 1 },
+    { id: 'house_hunting', title: 'Discovery & Listing Search', icon_name: 'Search', description: 'Browsing matches in Polk County.', learn_more_slug: 'discovery-guide', order: 1 },
     { id: 'pre_approval', title: 'Prequalification', icon_name: 'ShieldCheck', description: 'Loan Officer verified funds.', learn_more_slug: 'prequal-101', order: 2 },
     { id: 'under_contract', title: 'Offer Accepted', icon_name: 'FileCheck', description: 'Contract signed.', learn_more_slug: 'contract-to-close', order: 3 },
     { id: 'inspection', title: 'Inspection Period', icon_name: 'HardHat', description: 'Scheduled inspections.', learn_more_slug: 'inspection-tips', order: 4 },
