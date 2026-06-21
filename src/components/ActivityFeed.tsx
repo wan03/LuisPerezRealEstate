@@ -43,7 +43,7 @@ export default function ActivityFeed({ clientId }: { clientId: string }) {
                     description: `Current status is now ${transaction.status.replace('_', ' ')}.`,
                     timestamp: transaction.updated_at,
                     icon: <CheckCircle2 size={16} />,
-                    colorClass: 'bg-emerald-100 text-emerald-600'
+                    colorClass: 'lime'
                 });
             }
 
@@ -64,7 +64,7 @@ export default function ActivityFeed({ clientId }: { clientId: string }) {
                         description: doc.name,
                         timestamp: doc.created_at,
                         icon: <FileText size={16} />,
-                        colorClass: 'bg-blue-100 text-blue-600'
+                        colorClass: 'blue'
                     });
                 });
             }
@@ -95,7 +95,7 @@ export default function ActivityFeed({ clientId }: { clientId: string }) {
                             description: msg.content.substring(0, 50) + (msg.content.length > 50 ? '...' : ''),
                             timestamp: msg.created_at,
                             icon: <MessageSquare size={16} />,
-                            colorClass: 'bg-indigo-100 text-indigo-600'
+                            colorClass: 'org'
                         });
                     });
                 }
@@ -112,50 +112,52 @@ export default function ActivityFeed({ clientId }: { clientId: string }) {
     };
 
     if (loading) {
-        return <div className="p-8 text-center text-slate-400 text-xs font-black uppercase tracking-widest">Loading...</div>;
+        return <div className="p-8 text-center text-mut2 font-mono text-[11px] uppercase tracking-[0.1em]">Loading...</div>;
     }
 
     if (activities.length === 0) {
         return (
-            <div className="p-12 text-center bg-white rounded-3xl border border-slate-200">
-                <Clock size={48} className="mx-auto text-slate-200 mb-4" />
-                <p className="text-slate-400 font-black uppercase tracking-widest text-sm">No recent activity</p>
-                <p className="text-slate-400 text-xs mt-2">Updates will appear here as your transaction progresses.</p>
+            <div className="p-12 text-center bg-panel border border-line">
+                <Clock size={48} className="mx-auto text-mut2 opacity-40 mb-4" />
+                <p className="text-mut font-mono uppercase tracking-[0.1em] text-[11px]">No recent activity</p>
+                <p className="text-mut2 text-xs mt-2">Updates will appear here as your transaction progresses.</p>
             </div>
         );
     }
 
+    // Map activity color token -> Tailwind utilities for dot + badge
+    const dotColor: Record<string, string> = { lime: 'bg-lime', blue: 'bg-blue', org: 'bg-org' };
+    const badgeColor: Record<string, string> = { lime: 'text-lime', blue: 'text-blue2', org: 'text-org' };
+
     return (
-        <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+        <div className="bg-panel border border-line p-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Activity Feed</h2>
-                    <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Real-time Timeline</p>
+                    <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-ink">Activity <em className="not-italic text-lime">Feed</em></h2>
+                    <p className="font-mono text-[10px] text-mut tracking-[0.1em] uppercase mt-1.5">Real-time Timeline</p>
                 </div>
-                <div className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    Live
+                <div className="flex items-center gap-1.5 bg-panel2 border border-line text-lime px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.1em]">
+                    <span className="lp-live-dot" /> Live
                 </div>
             </div>
 
-            <div className="relative border-l-2 border-slate-100 ml-4 space-y-8 pb-4">
-                {activities.map((item, index) => (
+            <div className="relative border-l-2 border-line ml-4 space-y-8 pb-4">
+                {activities.map((item) => (
                     <div key={item.id} className="relative pl-8 group">
                         {/* Timeline Dot */}
-                        <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 border-white shadow-sm flex items-center justify-center transition-transform group-hover:scale-110 ${item.colorClass}`}>
-                            {/* Icon inside dot for extra flair? No, too small. Just color. */}
-                        </div>
+                        <div className={`absolute -left-[9px] top-0 w-4 h-4 border-2 border-panel flex items-center justify-center transition-transform group-hover:scale-110 ${dotColor[item.colorClass] || 'bg-mut'}`} />
 
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-                            <span className={`inline-flex items-center gap-2 px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-widest w-fit ${item.colorClass.replace('text-', 'bg-opacity-20 ')}`}>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
+                            <span className={`inline-flex items-center gap-2 px-2 py-1 bg-panel2 border border-line font-mono text-[10px] font-bold uppercase tracking-[0.08em] w-fit ${badgeColor[item.colorClass] || 'text-mut'}`}>
                                 {item.icon} {item.type}
                             </span>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
+                            <span className="font-mono text-[10px] text-mut2 uppercase tracking-[0.06em]">
                                 {formatDistanceToNow(new Date(item.timestamp), { addSuffix: true })}
                             </span>
                         </div>
 
-                        <h3 className="text-slate-900 font-bold text-sm mb-1">{item.title}</h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
+                        <h3 className="text-ink font-bold text-sm mb-1">{item.title}</h3>
+                        <p className="text-mut text-sm leading-relaxed">{item.description}</p>
                     </div>
                 ))}
             </div>

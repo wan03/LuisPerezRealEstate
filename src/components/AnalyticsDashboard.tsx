@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { TrendingUp, DollarSign, Users, Target, AlertCircle, RefreshCw } from 'lucide-react';
 import { AnalyticsSkeleton } from '@/components/Skeletons';
+import CountUp from '@/components/CountUp';
 
 interface AnalyticsData {
     total_active_clients: number;
@@ -66,9 +67,9 @@ export default function AnalyticsDashboard({ monthlyGoal = 50000 }: { monthlyGoa
     if (error && !metrics) {
         return (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
-                <AlertCircle size={32} className="text-red-400" />
-                <p className="text-slate-500 font-bold text-sm">Could not load analytics data.</p>
-                <button onClick={() => { setError(false); setLoading(true); }} className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all">
+                <AlertCircle size={32} className="text-org" />
+                <p className="text-mut font-bold text-sm">Could not load analytics data.</p>
+                <button onClick={() => { setError(false); setLoading(true); }} className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">
                     <RefreshCw size={14} /> Try Again
                 </button>
             </div>
@@ -99,74 +100,68 @@ export default function AnalyticsDashboard({ monthlyGoal = 50000 }: { monthlyGoa
     const maxFunnelValue = Math.max(...Object.values(data.funnel_distribution), 1);
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6">
             {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <Users size={64} className="text-indigo-600" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-panel p-6 border border-line relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity">
+                        <Users size={64} className="text-blue" />
                     </div>
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="bg-indigo-50 p-2 rounded-xl text-indigo-600">
-                            <Users size={20} />
-                        </div>
-                        <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wide">Active Clients</h4>
+                    <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-blue2">
+                        <CountUp end={data.total_active_clients} onView separator={false} />
                     </div>
-                    <p className="text-4xl font-black text-slate-900">{data.total_active_clients}</p>
+                    <div className="font-mono text-[10px] text-mut mt-2 uppercase tracking-[0.08em] flex items-center gap-1.5">
+                        <Users size={12} /> Active Clients
+                    </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <TrendingUp size={64} className="text-emerald-500" />
+                <div className="bg-panel p-6 border border-line relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity">
+                        <TrendingUp size={64} className="text-lime" />
                     </div>
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="bg-emerald-50 p-2 rounded-xl text-emerald-600">
-                            <TrendingUp size={20} />
-                        </div>
-                        <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wide">Volume (Active)</h4>
+                    <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-lime">
+                        <CountUp end={data.total_volume} onView prefix="$" />
                     </div>
-                    <p className="text-4xl font-black text-slate-900">{formatCurrency(data.total_volume)}</p>
+                    <div className="font-mono text-[10px] text-mut mt-2 uppercase tracking-[0.08em] flex items-center gap-1.5">
+                        <TrendingUp size={12} /> Volume (Active)
+                    </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <DollarSign size={64} className="text-amber-500" />
+                <div className="bg-panel p-6 border border-line relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity">
+                        <DollarSign size={64} className="text-org" />
                     </div>
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="bg-amber-50 p-2 rounded-xl text-amber-600">
-                            <DollarSign size={20} />
-                        </div>
-                        <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wide">Projected GCI</h4>
+                    <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-org">
+                        <CountUp end={data.projected_gci} onView prefix="$" />
                     </div>
-                    <p className="text-4xl font-black text-slate-900">{formatCurrency(data.projected_gci)}</p>
+                    <div className="font-mono text-[10px] text-mut mt-2 uppercase tracking-[0.08em] flex items-center gap-1.5">
+                        <DollarSign size={12} /> Projected GCI
+                    </div>
                 </div>
             </div>
 
             {/* Pipeline Visuals */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* Funnel Chart */}
-                <div className="bg-white p-8 rounded-3xl border border-slate-200">
-                    <div className="flex justify-between items-center mb-8">
-                        <h3 className="font-black text-xl text-slate-900">Pipeline Distribution</h3>
-                        <Target className="text-slate-300" />
+                <div className="bg-panel p-6 border border-line">
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="font-black text-[13px] uppercase tracking-[-0.01em] text-ink">Pipeline Distribution</h3>
+                        <Target size={18} className="text-mut2" />
                     </div>
 
-                    <div className="space-y-5">
+                    <div className="flex flex-col">
                         {funnelOrder.map(status => {
                             const count = data.funnel_distribution[status] || 0;
                             const percentage = (count / maxFunnelValue) * 100;
 
                             return (
-                                <div key={status} className="space-y-2">
-                                    <div className="flex justify-between text-sm font-bold">
-                                        <span className="text-slate-500">{funnelLabels[status]}</span>
-                                        <span className="text-slate-900">{count}</span>
+                                <div key={status} className="py-3 border-b border-line last:border-0">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="font-mono text-[11px] text-mut">{funnelLabels[status]}</span>
+                                        <span className="text-[16px] font-black tracking-[-0.02em] text-ink">{count}</span>
                                     </div>
-                                    <div className="h-3 bg-slate-50 rounded-full overflow-hidden">
-                                        <div
-                                            className="h-full bg-indigo-600 rounded-full transition-all duration-1000 ease-out"
-                                            style={{ width: `${Math.max(percentage, 2)}%`, opacity: percentage > 0 ? 1 : 0.3 }}
-                                        />
+                                    <div className="lp-track">
+                                        <i style={{ width: `${Math.max(percentage, 2)}%`, background: 'var(--blue)', opacity: percentage > 0 ? 1 : 0.3 }} />
                                     </div>
                                 </div>
                             );
@@ -175,30 +170,27 @@ export default function AnalyticsDashboard({ monthlyGoal = 50000 }: { monthlyGoa
                 </div>
 
                 {/* Recent Activity or Goals (Placeholder for deeper analytics) */}
-                <div className="bg-slate-900 text-white p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full blur-3xl opacity-20 -mr-16 -mt-16 pointer-events-none"></div>
+                <div className="bg-bg2 border border-line text-ink p-6 flex flex-col justify-between relative overflow-hidden">
+                    <div className="grid-bg absolute inset-0" style={{ opacity: 0.25 }} />
 
                     <div className="relative z-10">
-                        <h3 className="font-black text-xl mb-2">Monthly Goal</h3>
-                        <p className="text-slate-400 text-sm font-medium mb-8">Track your progress towards your monthly GCI target.</p>
+                        <h3 className="font-black text-[13px] uppercase tracking-[-0.01em] mb-1.5">Monthly <em className="not-italic text-lime">Goal</em></h3>
+                        <p className="text-mut text-[12px] mb-8">Track your progress towards your monthly GCI target.</p>
 
                         <div className="mb-2 flex justify-between items-end">
-                            <span className="text-3xl font-black">{formatCurrency(data.projected_gci)}</span>
-                            <span className="text-slate-400 font-bold mb-1">/ {formatCurrency(monthlyGoal)}</span>
+                            <span className="text-3xl font-black tracking-[-0.03em] text-lime">{formatCurrency(data.projected_gci)}</span>
+                            <span className="font-mono text-[11px] text-mut2 mb-1">/ {formatCurrency(monthlyGoal)}</span>
                         </div>
 
-                        <div className="h-4 bg-slate-800 rounded-full overflow-hidden mb-8 border border-slate-700">
-                            <div
-                                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-                                style={{ width: `${Math.min((data.projected_gci / monthlyGoal) * 100, 100)}%` }}
-                            />
+                        <div className="lp-track mb-8" style={{ height: 6 }}>
+                            <i style={{ width: `${Math.min((data.projected_gci / monthlyGoal) * 100, 100)}%`, background: 'linear-gradient(90deg,var(--blue),var(--lime))' }} />
                         </div>
                     </div>
 
-                    <div className="relative z-10 bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
-                        <p className="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-1">Insight</p>
-                        <p className="text-sm font-medium">
-                            You have <span className="text-white font-bold">{data.total_active_clients} active deals</span>.
+                    <div className="relative z-10 bg-panel border border-line p-4">
+                        <p className="font-mono text-[10px] text-blue2 uppercase tracking-[0.1em] mb-1.5">Insight</p>
+                        <p className="text-[13px] text-mut leading-relaxed">
+                            You have <span className="text-ink font-bold">{data.total_active_clients} active deals</span>.
                             Closing just 2 more leads this month typically keeps you on track for the annual goal.
                         </p>
                     </div>

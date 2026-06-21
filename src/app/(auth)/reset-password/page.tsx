@@ -6,6 +6,27 @@ import { ChevronLeft, Lock, ArrowRight, Loader2, AlertCircle, CheckCircle2 } fro
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
+function TopNav() {
+    return (
+        <nav className="border-b border-line bg-bg/90 backdrop-blur-xl">
+            <div className="h-16 px-5 md:px-8 flex items-center justify-between">
+                <Link href="/" className="flex items-center gap-2.5">
+                    <span className="lp-mark w-9 h-9 text-[12px]">LP</span>
+                    <div>
+                        <div className="font-black text-[14px] tracking-[-0.02em] uppercase leading-none">
+                            Luis Perez<span className="text-blue2">/RE</span>
+                        </div>
+                        <div className="font-mono text-[10px] text-mut mt-[3px]">Command Center</div>
+                    </div>
+                </Link>
+                <Link href="/" className="font-mono text-[11px] font-bold tracking-[0.06em] uppercase text-mut hover:text-ink transition-colors flex items-center gap-1.5">
+                    <ChevronLeft size={14} /> Back to Site
+                </Link>
+            </div>
+        </nav>
+    );
+}
+
 export default function ResetPasswordPage() {
     const supabase = createClient();
     const router = useRouter();
@@ -40,25 +61,6 @@ export default function ResetPasswordPage() {
     };
 
     const btnBase = 'inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px';
-
-    const TopNav = () => (
-        <nav className="border-b border-line bg-bg/90 backdrop-blur-xl">
-            <div className="h-16 px-5 md:px-8 flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2.5">
-                    <span className="lp-mark w-9 h-9 text-[12px]">LP</span>
-                    <div>
-                        <div className="font-black text-[14px] tracking-[-0.02em] uppercase leading-none">
-                            Luis Perez<span className="text-blue2">/RE</span>
-                        </div>
-                        <div className="font-mono text-[10px] text-mut mt-[3px]">Command Center</div>
-                    </div>
-                </Link>
-                <Link href="/" className="font-mono text-[11px] font-bold tracking-[0.06em] uppercase text-mut hover:text-ink transition-colors flex items-center gap-1.5">
-                    <ChevronLeft size={14} /> Back to Site
-                </Link>
-            </div>
-        </nav>
-    );
 
     if (success) {
         return (

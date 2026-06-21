@@ -147,10 +147,10 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
 
     if (error) {
         return (
-            <div className="bg-white rounded-3xl p-12 shadow-sm border border-red-200 flex flex-col items-center justify-center gap-4">
-                <AlertCircle className="text-red-400" size={32} />
-                <p className="text-slate-500 font-bold text-sm">Could not load your transaction roadmap.</p>
-                <button onClick={() => { setError(false); setLoading(true); void fetchTransaction().catch(() => { setError(true); setLoading(false); }); }} className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all">
+            <div className="bg-panel border border-line p-12 flex flex-col items-center justify-center gap-4">
+                <AlertCircle className="text-org" size={32} />
+                <p className="text-mut font-bold text-sm">Could not load your transaction roadmap.</p>
+                <button onClick={() => { setError(false); setLoading(true); void fetchTransaction().catch(() => { setError(true); setLoading(false); }); }} className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">
                     <RefreshCw size={14} /> Try Again
                 </button>
             </div>
@@ -159,28 +159,34 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
 
     if (milestones.length === 0) {
         return (
-            <div className="bg-white rounded-3xl p-12 shadow-sm border border-slate-200 flex flex-col items-center justify-center">
-                <p className="text-slate-400 font-black uppercase tracking-widest text-xs">No active transaction plan found.</p>
+            <div className="bg-panel border border-line p-12 flex flex-col items-center justify-center">
+                <p className="text-mut2 font-mono text-[11px] tracking-[0.1em] uppercase">No active transaction plan found.</p>
             </div>
         );
     }
 
+    const completedCount = milestones.filter(m => m.status === 'completed').length;
+    const activeCount = milestones.filter(m => m.status === 'active').length;
+    const fillPct = milestones.length > 1
+        ? Math.min(100, ((completedCount + (activeCount > 0 ? 0.5 : 0)) / (milestones.length - 1)) * 100)
+        : 0;
+
     return (
         <div className="space-y-8">
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 relative overflow-hidden">
+            <div className="bg-panel border border-line corner-brackets relative overflow-hidden p-8">
                 <div className="flex items-center justify-between mb-10">
                     <div className="flex items-center gap-3">
-                        <div className="bg-slate-900 p-2 rounded-lg">
-                            <Clock className="text-white" size={20} />
+                        <div className="bg-panel2 border border-line p-2">
+                            <Clock className="text-blue2" size={20} />
                         </div>
-                        <h2 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight">Transaction Roadmap</h2>
+                        <h2 className="text-xl md:text-2xl font-black uppercase tracking-[-0.03em] text-ink">Transaction <em className="not-italic text-lime">Roadmap</em></h2>
                     </div>
                     {role !== 'client' && (
                         <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Status:</span>
+                            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">Status</span>
                             <div className="relative">
                                 <select
-                                    className="appearance-none bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-black uppercase px-4 py-2 pr-8 rounded-xl border border-indigo-100 cursor-pointer outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                                    className="appearance-none bg-panel2 hover:bg-[#222b3a] text-ink font-mono text-[11px] font-bold uppercase tracking-[0.06em] px-4 py-2 pr-8 border border-line cursor-pointer outline-none focus:border-blue transition-colors"
                                     value={milestones.find(m => m.status === 'active')?.id || (milestones.every(m => m.status === 'completed') ? 'closed' : 'lead')}
                                     onChange={(e) => updateStatus(e.target.value)}
                                 >
@@ -190,7 +196,7 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                                         </option>
                                     ))}
                                 </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-indigo-700">
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-mut">
                                     <ChevronRight size={14} className="rotate-90" />
                                 </div>
                             </div>
@@ -198,8 +204,10 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                     )}
                 </div>
 
-                <div className="relative space-y-0 text-black">
-                    <div className="absolute left-[27px] top-2 bottom-6 w-0.5 bg-slate-100" />
+                <div className="relative space-y-0">
+                    {/* Connecting line + lime/blue fill */}
+                    <div className="absolute left-[27px] top-2 bottom-6 w-[2px] bg-line" />
+                    <div className="absolute left-[27px] top-2 w-[2px] transition-[height] duration-500" style={{ height: `calc((100% - 1.5rem) * ${fillPct / 100})`, background: 'linear-gradient(180deg,var(--lime),var(--blue))' }} />
 
                     {milestones.map((milestone) => (
                         <div key={milestone.id} className="relative pl-16 pb-12 last:pb-0 group">
@@ -207,28 +215,28 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                                 onClick={() => updateStatus(milestone.id)}
                                 disabled={role === 'client'}
                                 title={milestone.title}
-                                className={`absolute left-0 top-0 w-14 h-14 rounded-full border-4 border-white flex items-center justify-center z-10 shadow-sm transition-all duration-500 ${milestone.status === 'completed' ? 'bg-emerald-500 text-white shadow-emerald-100' :
-                                    milestone.status === 'active' ? 'bg-indigo-600 text-white shadow-indigo-100 animate-pulse' :
-                                        'bg-slate-100 text-slate-400'
-                                    } ${role !== 'client' ? 'cursor-pointer hover:scale-110 active:scale-95' : 'cursor-default'}`}>
+                                className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center z-10 transition-colors duration-300 ${milestone.status === 'completed' ? 'bg-lime text-bg' :
+                                    milestone.status === 'active' ? 'bg-blue text-white animate-pulse' :
+                                        'bg-panel2 border border-line text-mut2'
+                                    } ${role !== 'client' ? 'cursor-pointer hover:opacity-90 active:translate-y-px' : 'cursor-default'}`}>
                                 {milestone.status === 'completed' ? <CheckCircle2 size={24} /> : (ICON_MAP[milestone.icon_name] || <Circle size={20} />)}
                             </button>
 
-                            <div className={`transition-all duration-500 ${milestone.status === 'pending' ? 'opacity-50' : 'opacity-100'}`}>
+                            <div className={`transition-opacity duration-300 ${milestone.status === 'pending' ? 'opacity-50' : 'opacity-100'}`}>
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                     <div>
-                                        <h3 className={`text-xl font-black ${milestone.status === 'completed' ? 'text-emerald-700' :
-                                            milestone.status === 'active' ? 'text-slate-800' : 'text-slate-400'
+                                        <h3 className={`text-lg font-extrabold uppercase tracking-[-0.01em] ${milestone.status === 'completed' ? 'text-lime' :
+                                            milestone.status === 'active' ? 'text-blue2' : 'text-mut'
                                             }`}>
                                             {milestone.title}
                                         </h3>
-                                        <p className="text-slate-500 text-sm font-medium mt-1">{milestone.description}</p>
+                                        <p className="text-mut font-mono text-[11px] tracking-[0.04em] mt-1.5">{milestone.description}</p>
                                     </div>
 
                                     {milestone.learn_more_slug && (
                                         <Link
                                             href={`/learn/${milestone.learn_more_slug}`}
-                                            className="inline-flex items-center gap-1.5 text-xs font-black text-indigo-600 bg-indigo-50 px-3 py-2 rounded-xl border border-indigo-100 hover:bg-indigo-100 transition-all uppercase tracking-wider"
+                                            className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.08em] text-blue2 bg-panel2 px-3 py-2 border border-line hover:border-blue transition-colors uppercase"
                                         >
                                             <Info size={14} /> Learn More <ChevronRight size={14} />
                                         </Link>
@@ -236,9 +244,10 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                                 </div>
 
                                 {milestone.status === 'active' && (
-                                    <div className="mt-4 flex gap-2">
-                                        <span className="bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase px-2 py-1 rounded-md border border-indigo-100 italic">
-                                            In Progress
+                                    <div className="mt-3 flex items-center gap-2">
+                                        <span className="lp-live-dot" />
+                                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-blue2">
+                                            In Progress · Current Step
                                         </span>
                                     </div>
                                 )}

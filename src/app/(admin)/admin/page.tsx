@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { Shield, Users, FileText, Activity, UserPlus, Loader2, LogOut } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { fetchSystemStats } from './actions';
@@ -86,9 +87,9 @@ export default function AdminConsole() {
                 <div className="bg-panel border border-line overflow-hidden relative">
                     <div className="card-head px-6 py-5 border-b border-line flex items-center justify-between">
                         <h3 className="text-[15px] font-black uppercase tracking-[-0.01em]">Knowledge Base</h3>
-                        <a href="/learn" className="inline-flex items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-4 py-2 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-[#222b3a]">
+                        <Link href="/learn" className="inline-flex items-center justify-center gap-2 font-extrabold text-[12px] tracking-[0.025em] uppercase px-4 py-2 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-[#222b3a]">
                             Education Hub →
-                        </a>
+                        </Link>
                     </div>
                     <div className="relative p-8 overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-[0.05] rotate-12 text-ink pointer-events-none">
@@ -97,7 +98,7 @@ export default function AdminConsole() {
                         <div className="relative z-10 max-w-2xl">
                             <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2 mb-3">Content Management</p>
                             <p className="text-mut leading-relaxed">
-                                Educational content is managed through the CMS. Visit the <a href="/learn" className="text-blue2 underline hover:text-lime transition-colors">Education Hub</a> to see published articles.
+                                Educational content is managed through the CMS. Visit the <Link href="/learn" className="text-blue2 underline hover:text-lime transition-colors">Education Hub</Link> to see published articles.
                             </p>
                         </div>
                     </div>

@@ -86,50 +86,50 @@ export default function NewTransactionModal({ isOpen, onClose, onSuccess }: NewT
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl border border-slate-200 overflow-hidden">
-                <div className="bg-slate-50 p-6 border-b border-slate-100 flex justify-between items-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 backdrop-blur p-4">
+            <div className="bg-panel border border-line corner-brackets w-full max-w-lg overflow-hidden">
+                <div className="bg-bg2 p-5 border-b border-line flex justify-between items-center">
                     <div>
-                        <h3 className="font-black text-xl text-slate-900 tracking-tight">New Transaction</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Add Client to Pipeline</p>
+                        <h3 className="font-black text-xl uppercase tracking-[-0.03em] text-ink">New <em className="not-italic text-lime">Transaction</em></h3>
+                        <p className="font-mono text-[10px] text-mut tracking-[0.1em] uppercase mt-1">Add Client to Pipeline</p>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-400 hover:text-slate-600">
+                    <button onClick={onClose} className="p-2 hover:bg-panel2 transition-colors text-mut hover:text-ink">
                         <X size={20} />
                     </button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
                     {error && (
-                        <div className="bg-red-50 text-red-600 p-3 rounded-xl text-sm font-bold">
+                        <div className="bg-panel2 border border-org/40 text-org p-3 text-sm font-bold">
                             {error}
                         </div>
                     )}
 
                     <div className="space-y-4">
-                        <div className="space-y-1">
-                            <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-1">Client Name</label>
-                            <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent transition-all">
-                                <User size={18} className="text-slate-400" />
+                        <div className="space-y-1.5">
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Client Name</label>
+                            <div className="relative">
+                                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-mut2 z-10" />
                                 <input
                                     required
                                     type="text"
                                     placeholder="e.g. Michael Scott"
-                                    className="bg-transparent border-none focus:outline-none text-sm font-bold text-slate-700 w-full placeholder:font-medium"
+                                    className="lp-input w-full pl-9 pr-3 py-3 text-[14px]"
                                     value={formData.fullName}
                                     onChange={e => setFormData({ ...formData, fullName: e.target.value })}
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-1">Property / Deal Name</label>
-                            <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent transition-all">
-                                <Home size={18} className="text-slate-400" />
+                        <div className="space-y-1.5">
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Property / Deal Name</label>
+                            <div className="relative">
+                                <Home size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-mut2 z-10" />
                                 <input
                                     required
                                     type="text"
                                     placeholder="e.g. 1725 Slough Avenue"
-                                    className="bg-transparent border-none focus:outline-none text-sm font-bold text-slate-700 w-full placeholder:font-medium"
+                                    className="lp-input w-full pl-9 pr-3 py-3 text-[14px]"
                                     value={formData.property}
                                     onChange={e => setFormData({ ...formData, property: e.target.value })}
                                 />
@@ -137,32 +137,32 @@ export default function NewTransactionModal({ isOpen, onClose, onSuccess }: NewT
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                                <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-1">Est. Value ($)</label>
-                                <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all">
-                                    <DollarSign size={16} className="text-emerald-500" />
+                            <div className="space-y-1.5">
+                                <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Est. Value ($)</label>
+                                <div className="relative">
+                                    <DollarSign size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-lime z-10" />
                                     <input
                                         type="number"
                                         min="0"
                                         step="1000"
                                         placeholder="500000"
-                                        className="bg-transparent border-none focus:outline-none text-sm font-bold text-slate-700 w-full"
+                                        className="lp-input w-full pl-9 pr-3 py-3 text-[14px]"
                                         value={formData.estimatedValue}
                                         onChange={e => setFormData({ ...formData, estimatedValue: e.target.value })}
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-1">Commission (%)</label>
-                                <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all">
-                                    <Percent size={16} className="text-indigo-500" />
+                            <div className="space-y-1.5">
+                                <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Commission (%)</label>
+                                <div className="relative">
+                                    <Percent size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-blue2 z-10" />
                                     <input
                                         type="number"
                                         min="0"
                                         max="100"
                                         step="0.1"
                                         placeholder="3.0"
-                                        className="bg-transparent border-none focus:outline-none text-sm font-bold text-slate-700 w-full"
+                                        className="lp-input w-full pl-9 pr-3 py-3 text-[14px]"
                                         value={formData.commissionRate}
                                         onChange={e => setFormData({ ...formData, commissionRate: e.target.value })}
                                     />
@@ -170,10 +170,10 @@ export default function NewTransactionModal({ isOpen, onClose, onSuccess }: NewT
                             </div>
                         </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-1">Initial Status</label>
+                        <div className="space-y-1.5">
+                            <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Initial Status</label>
                             <select
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-3 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                className="lp-input w-full px-3 py-3 text-[14px] uppercase"
                                 value={formData.status}
                                 onChange={e => setFormData({ ...formData, status: e.target.value })}
                             >
@@ -189,9 +189,9 @@ export default function NewTransactionModal({ isOpen, onClose, onSuccess }: NewT
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-indigo-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none flex items-center justify-center gap-2"
+                            className="w-full inline-flex items-center justify-center gap-2 bg-lime text-bg hover:bg-[#d2ff56] p-4 font-extrabold uppercase tracking-[0.025em] text-[13px] transition-colors active:translate-y-px disabled:opacity-70 disabled:pointer-events-none"
                         >
-                            {loading ? <Loader2 className="animate-spin" size={20} /> : 'Create Transaction'}
+                            {loading ? <Loader2 className="lp-spinner" style={{ width: 20, height: 20 }} /> : 'Create Transaction'}
                         </button>
                     </div>
                 </form>

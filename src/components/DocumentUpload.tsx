@@ -85,18 +85,18 @@ export default function DocumentUpload() {
     };
 
     return (
-        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+        <div className="bg-panel p-8 border border-line">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Document Vault</h2>
-                    <p className="text-slate-500 text-sm font-medium">Securely upload and manage your transaction docs.</p>
+                    <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-ink">Document <em className="not-italic text-lime">Vault</em></h2>
+                    <p className="font-mono text-[11px] tracking-[0.04em] text-mut mt-1.5">Securely upload and manage your transaction docs.</p>
                 </div>
-                <div className="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl border border-emerald-100 flex items-center gap-2">
-                    <ShieldCheck size={18} />
-                    <span className="text-xs font-black uppercase tracking-widest">End-to-End Encrypted</span>
+                <div className="bg-panel2 text-lime px-3 py-2 border border-line flex items-center gap-2">
+                    <ShieldCheck size={16} />
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.08em]">End-to-End Encrypted</span>
                 </div>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Upload Zone */}
                 <div
                     onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
@@ -107,7 +107,7 @@ export default function DocumentUpload() {
                         const file = e.dataTransfer.files?.[0];
                         if (file) handleUpload(file);
                     }}
-                    className={`border-4 border-dashed rounded-[32px] p-12 text-center transition-all cursor-pointer ${isDragging ? 'border-indigo-500 bg-indigo-50 scale-[0.99]' : 'border-slate-100 bg-slate-50'
+                    className={`border-2 border-dashed p-12 text-center transition-colors cursor-pointer ${isDragging ? 'border-lime bg-panel2' : 'border-line bg-bg2 hover:border-mut'
                         }`}
                     onClick={() => fileInputRef.current?.click()}
                 >
@@ -117,41 +117,41 @@ export default function DocumentUpload() {
                         className="hidden"
                         onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
                     />
-                    <div className="bg-white w-20 h-20 rounded-3xl shadow-lg flex items-center justify-center mx-auto mb-6">
-                        {isUploading ? <Loader2 className="animate-spin text-indigo-600" size={32} /> : <Upload className="text-indigo-600" size={32} />}
+                    <div className="bg-panel2 w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        {isUploading ? <Loader2 className="lp-spinner text-lime" style={{ width: 32, height: 32 }} /> : <Upload className="text-lime" size={32} />}
                     </div>
-                    <h3 className="text-xl font-black text-slate-800 mb-2">{isUploading ? 'Uploading...' : 'Drag & Drop Documents'}</h3>
-                    <p className="text-slate-500 text-sm font-bold mb-8 italic">PDF, JPEG, or PNG up to 20MB</p>
-                    <button className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 pointer-events-none">
+                    <h3 className="text-xl font-black uppercase tracking-[-0.02em] text-ink mb-2">{isUploading ? 'Uploading...' : 'Drag & Drop Documents'}</h3>
+                    <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.08em] mb-8">PDF, JPEG, or PNG up to 20MB</p>
+                    <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 bg-lime text-bg pointer-events-none">
                         Browse Files
                     </button>
                 </div>
 
                 {/* Uploaded List (Replaces Checklist for now to show real data) */}
-                <div className="space-y-4">
-                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Your Files</h4>
+                <div className="space-y-3">
+                    <h4 className="font-mono text-[10px] font-bold text-mut2 uppercase tracking-[0.14em] mb-4">Your Files</h4>
                     {uploadedDocs.length === 0 ? (
-                        <p className="text-slate-400 italic text-sm">No documents uploaded yet.</p>
+                        <p className="text-mut2 text-sm">No documents uploaded yet.</p>
                     ) : (
                         uploadedDocs.map((doc) => (
-                            <div key={doc.id} className="group flex items-center justify-between p-4 rounded-2xl border border-slate-100 hover:border-indigo-100 hover:bg-slate-50 transition-all">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                                        <FileText size={20} />
+                            <div key={doc.id} className="group flex items-center justify-between p-3 bg-bg2 border border-line hover:border-blue transition-colors">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-panel2 text-mut flex items-center justify-center flex-none">
+                                        <FileText size={18} />
                                     </div>
                                     <div>
-                                        <p className="font-bold text-slate-800 leading-none mb-1 truncate max-w-[150px]">{doc.name}</p>
-                                        <p className="text-xs font-bold text-slate-400">{new Date(doc.created_at).toLocaleDateString()}</p>
+                                        <p className="font-bold text-ink leading-none mb-1 truncate max-w-[150px]">{doc.name}</p>
+                                        <p className="font-mono text-[10px] text-mut2">{new Date(doc.created_at).toLocaleDateString()}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className="text-[10px] font-black uppercase text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md">{doc.status}</span>
+                                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-lime bg-panel2 px-2 py-1 border border-line">{doc.status}</span>
                                     <button
                                         onClick={async () => {
                                             const { data } = await supabase.storage.from('client-docs').createSignedUrl(doc.file_path, 60);
                                             if (data) window.open(data.signedUrl, '_blank');
                                         }}
-                                        className="text-slate-400 hover:text-indigo-600 transition-colors"
+                                        className="text-mut2 hover:text-blue2 transition-colors"
                                     >
                                         <Download size={16} />
                                     </button>

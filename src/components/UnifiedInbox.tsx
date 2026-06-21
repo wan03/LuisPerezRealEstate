@@ -101,9 +101,9 @@ export default function UnifiedInbox({ onSelectRoom }: { onSelectRoom: (roomId: 
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
-                <AlertCircle size={32} className="text-red-400" />
-                <p className="text-slate-500 font-bold text-sm">Could not load conversations.</p>
-                <button onClick={() => { setError(false); setLoading(true); }} className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all">
+                <AlertCircle size={32} className="text-org" />
+                <p className="text-mut font-bold text-sm">Could not load conversations.</p>
+                <button onClick={() => { setError(false); setLoading(true); }} className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">
                     <RefreshCw size={14} /> Try Again
                 </button>
             </div>
@@ -112,29 +112,29 @@ export default function UnifiedInbox({ onSelectRoom }: { onSelectRoom: (roomId: 
 
     if (rooms.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
-                <MessageSquare size={48} className="text-slate-200 mb-4" />
-                <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">No active conversations</p>
+            <div className="flex flex-col items-center justify-center py-20 bg-panel border border-dashed border-line">
+                <MessageSquare size={48} className="text-mut2 opacity-40 mb-4" />
+                <p className="text-mut2 font-mono uppercase text-[11px] tracking-[0.1em]">No active conversations</p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-3">
             {rooms.map((room) => (
                 <div
                     key={room.id}
                     onClick={() => onSelectRoom(room.id)}
-                    className="bg-white p-5 rounded-2xl border border-slate-100 hover:border-indigo-600 hover:shadow-lg transition-all cursor-pointer group"
+                    className="bg-panel p-4 border border-line hover:border-blue transition-colors cursor-pointer group"
                 >
                     <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                            <div className="w-10 h-10 bg-panel2 flex items-center justify-center text-mut group-hover:text-blue2 transition-colors flex-none">
                                 <User size={20} />
                             </div>
                             <div>
-                                <h4 className="font-black text-slate-900">{room.name || 'Personal Chat'}</h4>
-                                <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                                <h4 className="font-extrabold uppercase tracking-[-0.01em] text-ink">{room.name || 'Personal Chat'}</h4>
+                                <div className="flex items-center gap-1.5 font-mono text-[10px] text-mut2 tracking-[0.08em] uppercase mt-0.5">
                                     <Clock size={10} />
                                     {room.last_message
                                         ? new Date(room.last_message.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
@@ -142,12 +142,13 @@ export default function UnifiedInbox({ onSelectRoom }: { onSelectRoom: (roomId: 
                                 </div>
                             </div>
                         </div>
+                        {room.last_message && <span className="lp-live-dot mt-1.5" />}
                     </div>
                     {room.last_message && (
-                        <div className="mt-3">
-                            <p className="text-sm text-slate-600 line-clamp-1 italic">
-                                <span className="font-black text-indigo-600 not-italic mr-1">{room.last_message.sender.full_name}:</span>
-                                "{room.last_message.content}"
+                        <div className="mt-2 pl-[52px]">
+                            <p className="text-[13px] text-mut line-clamp-1">
+                                <span className="font-bold text-blue2 mr-1">{room.last_message.sender.full_name}:</span>
+                                {room.last_message.content}
                             </p>
                         </div>
                     )}
