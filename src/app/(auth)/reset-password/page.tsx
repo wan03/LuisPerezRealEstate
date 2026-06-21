@@ -70,14 +70,14 @@ export default function ResetPasswordPage() {
                     <div className="grid-bg" />
                     <div className="relative z-[2] w-full max-w-[440px]">
                         <div className="corner-brackets bg-panel border border-line p-8 text-center">
-                            <span className="lp-mark w-14 h-14 !bg-lime !text-bg mx-auto mb-5 inline-grid">
+                            <span className="lp-mark w-14 h-14 !bg-lime !text-accentink mx-auto mb-5 inline-grid">
                                 <CheckCircle2 size={28} />
                             </span>
                             <h2 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">Password Updated</h2>
                             <p className="text-mut leading-relaxed mt-4 mb-6">
                                 Your password has been successfully updated. You can now login to your Command Center with your new credentials.
                             </p>
-                            <Link href="/login" className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56]`}>
+                            <Link href="/login" className={`${btnBase} w-full bg-lime text-accentink hover:bg-lime2`}>
                                 Login Now
                             </Link>
                         </div>
@@ -97,7 +97,7 @@ export default function ResetPasswordPage() {
 
                 <div className="relative z-[2] w-full max-w-[440px]">
                     <div className="text-center mb-8">
-                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-bg mx-auto mb-4">LP</span>
+                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-accentink mx-auto mb-4">LP</span>
                         <h1 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">New <span className="text-lime">Password</span></h1>
                         <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut mt-1.5">Secure your Command Center access</p>
                     </div>
@@ -129,7 +129,7 @@ export default function ResetPasswordPage() {
                             <button
                                 disabled={loading}
                                 type="submit"
-                                className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56] disabled:opacity-50`}
+                                className={`${btnBase} w-full bg-lime text-accentink hover:bg-lime2 disabled:opacity-50`}
                             >
                                 {loading ? (
                                     <Loader2 className="animate-spin" size={16} />

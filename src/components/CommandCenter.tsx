@@ -186,7 +186,7 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                             <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">Status</span>
                             <div className="relative">
                                 <select
-                                    className="appearance-none bg-panel2 hover:bg-[#222b3a] text-ink font-mono text-[11px] font-bold uppercase tracking-[0.06em] px-4 py-2 pr-8 border border-line cursor-pointer outline-none focus:border-blue transition-colors"
+                                    className="appearance-none bg-panel2 hover:bg-elev text-ink font-mono text-[11px] font-bold uppercase tracking-[0.06em] px-4 py-2 pr-8 border border-line cursor-pointer outline-none focus:border-blue transition-colors"
                                     value={milestones.find(m => m.status === 'active')?.id || (milestones.every(m => m.status === 'completed') ? 'closed' : 'lead')}
                                     onChange={(e) => updateStatus(e.target.value)}
                                 >
@@ -215,7 +215,7 @@ export default function CommandCenter({ role = 'client', clientId }: { role?: 'c
                                 onClick={() => updateStatus(milestone.id)}
                                 disabled={role === 'client'}
                                 title={milestone.title}
-                                className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center z-10 transition-colors duration-300 ${milestone.status === 'completed' ? 'bg-lime text-bg' :
+                                className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center z-10 transition-colors duration-300 ${milestone.status === 'completed' ? 'bg-lime text-accentink' :
                                     milestone.status === 'active' ? 'bg-blue text-white animate-pulse' :
                                         'bg-panel2 border border-line text-mut2'
                                     } ${role !== 'client' ? 'cursor-pointer hover:opacity-90 active:translate-y-px' : 'cursor-default'}`}>

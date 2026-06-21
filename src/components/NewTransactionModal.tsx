@@ -189,7 +189,7 @@ export default function NewTransactionModal({ isOpen, onClose, onSuccess }: NewT
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full inline-flex items-center justify-center gap-2 bg-lime text-bg hover:bg-[#d2ff56] p-4 font-extrabold uppercase tracking-[0.025em] text-[13px] transition-colors active:translate-y-px disabled:opacity-70 disabled:pointer-events-none"
+                            className="w-full inline-flex items-center justify-center gap-2 bg-lime text-accentink hover:bg-lime2 p-4 font-extrabold uppercase tracking-[0.025em] text-[13px] transition-colors active:translate-y-px disabled:opacity-70 disabled:pointer-events-none"
                         >
                             {loading ? <Loader2 className="lp-spinner" style={{ width: 20, height: 20 }} /> : 'Create Transaction'}
                         </button>

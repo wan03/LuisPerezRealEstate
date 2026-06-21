@@ -62,14 +62,14 @@ export default function ForgotPasswordPage() {
                     <div className="grid-bg" />
                     <div className="relative z-[2] w-full max-w-[440px]">
                         <div className="corner-brackets bg-panel border border-line p-8 text-center">
-                            <span className="lp-mark w-14 h-14 !bg-lime !text-bg mx-auto mb-5 inline-grid">
+                            <span className="lp-mark w-14 h-14 !bg-lime !text-accentink mx-auto mb-5 inline-grid">
                                 <CheckCircle2 size={28} />
                             </span>
                             <h2 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">Check Your Email</h2>
                             <p className="text-mut leading-relaxed mt-4 mb-6">
                                 We&apos;ve sent a password reset link to <span className="text-blue2">{email}</span>. Please click the link to choose a new password.
                             </p>
-                            <Link href="/login" className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56]`}>
+                            <Link href="/login" className={`${btnBase} w-full bg-lime text-accentink hover:bg-lime2`}>
                                 Return to Login
                             </Link>
                         </div>
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
 
                 <div className="relative z-[2] w-full max-w-[440px]">
                     <div className="text-center mb-8">
-                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-bg mx-auto mb-4">LP</span>
+                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-accentink mx-auto mb-4">LP</span>
                         <h1 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">Reset <span className="text-lime">Password</span></h1>
                         <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut mt-1.5">Recover your Command Center access</p>
                     </div>
@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
                             <button
                                 disabled={loading}
                                 type="submit"
-                                className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56] disabled:opacity-50`}
+                                className={`${btnBase} w-full bg-lime text-accentink hover:bg-lime2 disabled:opacity-50`}
                             >
                                 {loading ? (
                                     <Loader2 className="animate-spin" size={16} />

@@ -124,7 +124,7 @@ export default function ClientsPage() {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => setIsNewTxModalOpen(true)}
-                        className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-lime text-bg hover:bg-[#d2ff56]"
+                        className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-lime text-accentink hover:bg-lime2"
                     >
                         <Plus size={16} /> New Transaction
                     </button>
@@ -212,7 +212,7 @@ export default function ClientsPage() {
                                         <p className="font-mono text-[10px] text-mut mt-1.5">Professional Command Control</p>
                                     </div>
                                     <div className="flex gap-2">
-                                        <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-[#222b3a]">Archive</button>
+                                        <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-elev">Archive</button>
                                         <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">Share Hub</button>
                                     </div>
                                 </div>

@@ -171,7 +171,7 @@ export default function TemplatesPage() {
                                         <>
                                             <button
                                                 onClick={() => toggleActive(template.id, template.is_active)}
-                                                className={`flex-1 md:flex-none px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px ${template.is_active ? 'bg-panel2 text-ink hover:bg-[#222b3a]' : 'bg-lime/10 text-lime hover:bg-lime/20'}`}
+                                                className={`flex-1 md:flex-none px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px ${template.is_active ? 'bg-panel2 text-ink hover:bg-elev' : 'bg-lime/10 text-lime hover:bg-lime/20'}`}
                                             >
                                                 {template.is_active ? 'Disable' : 'Enable'}
                                             </button>
@@ -186,13 +186,13 @@ export default function TemplatesPage() {
                                         <>
                                             <button
                                                 onClick={handleCancel}
-                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-panel2 text-ink hover:bg-[#222b3a] px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
+                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-panel2 text-ink hover:bg-elev px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
                                             >
                                                 <X size={14} /> Cancel
                                             </button>
                                             <button
                                                 onClick={() => handleSave(template.id)}
-                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-lime text-bg hover:bg-[#d2ff56] px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
+                                                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-lime text-accentink hover:bg-lime2 px-4 py-2.5 font-extrabold uppercase tracking-[0.025em] text-[12px] transition-colors active:translate-y-px"
                                             >
                                                 <Save size={14} /> Save
                                             </button>
@@ -233,7 +233,7 @@ export default function TemplatesPage() {
                                     <div className="bg-bg2 border border-line p-4">
                                         <p className="font-mono text-[10px] text-mut2 uppercase tracking-[0.1em] mb-3">Preview</p>
                                         <div
-                                            className="prose prose-sm prose-invert max-w-none text-mut bg-bg p-6 border border-line"
+                                            className="prose prose-sm max-w-none text-mut bg-bg p-6 border border-line"
                                             dangerouslySetInnerHTML={{ __html: template.body_html || '<p class="text-mut2 italic">Empty body...</p>' }}
                                         />
                                     </div>

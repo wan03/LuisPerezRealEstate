@@ -32,7 +32,7 @@ export default function TriadChat({ userRole = 'client', roomId }: { userRole?: 
                 <div className="flex items-center gap-4">
                     <div className="flex -space-x-1.5">
                         <div className="w-9 h-9 border-2 border-bg2 bg-blue text-white flex items-center justify-center"><User size={18} /></div>
-                        <div className="w-9 h-9 border-2 border-bg2 bg-lime text-bg flex items-center justify-center"><Briefcase size={18} /></div>
+                        <div className="w-9 h-9 border-2 border-bg2 bg-lime text-accentink flex items-center justify-center"><Briefcase size={18} /></div>
                         <div className="w-9 h-9 border-2 border-bg2 bg-panel2 text-ink flex items-center justify-center"><Shield size={18} /></div>
                     </div>
                     <div>
