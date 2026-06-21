@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Shield, Mail, Lock, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { ChevronLeft, Mail, Lock, ShieldCheck, Loader2, AlertCircle } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
 export default function LoginPage() {
@@ -63,100 +63,131 @@ export default function LoginPage() {
         }
     };
 
+    const btnBase = 'inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px';
+
     return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Decorative Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 blur-[120px] rounded-full" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-600/10 blur-[120px] rounded-full" />
-            </div>
-
-            <div className="w-full max-w-md relative z-10">
-                {/* Logo Section */}
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-2xl shadow-xl shadow-indigo-500/20 mb-4 transform hover:rotate-12 transition-transform">
-                        <Shield className="text-white" size={32} />
-                    </div>
-                    <h1 className="text-3xl font-black text-white italic tracking-tighter uppercase">Command Center</h1>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-2">Personal Secure Access</p>
+        <div className="min-h-screen bg-bg flex flex-col">
+            {/* Loading overlay */}
+            {loading && (
+                <div className="fixed inset-0 z-[100] bg-bg/90 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+                    <div className="lp-spinner w-10 h-10" />
+                    <p className="font-mono text-[11px] tracking-[0.12em] uppercase text-mut">Establishing connection...</p>
                 </div>
+            )}
 
-                {/* Login Card */}
-                <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[40px] p-8 md:p-10 shadow-2xl">
-                    <form onSubmit={handleLogin} className="space-y-6">
-                        {error && (
-                            <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl flex items-center gap-3 text-sm font-medium animate-shake">
-                                <AlertCircle size={18} />
-                                {error}
+            {/* Top nav */}
+            <nav className="border-b border-line bg-bg/90 backdrop-blur-xl">
+                <div className="h-16 px-5 md:px-8 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-2.5">
+                        <span className="lp-mark w-9 h-9 text-[12px]">LP</span>
+                        <div>
+                            <div className="font-black text-[14px] tracking-[-0.02em] uppercase leading-none">
+                                Luis Perez<span className="text-blue2">/RE</span>
                             </div>
-                        )}
-
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Email Address</label>
-                            <div className="relative group">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors" size={18} />
-                                <input
-                                    required
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="name@example.com"
-                                    className="w-full bg-white/[0.05] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
-                                />
-                            </div>
+                            <div className="font-mono text-[10px] text-mut mt-[3px]">Command Center</div>
                         </div>
+                    </Link>
+                    <Link href="/" className="font-mono text-[11px] font-bold tracking-[0.06em] uppercase text-mut hover:text-ink transition-colors flex items-center gap-1.5">
+                        <ChevronLeft size={14} /> Back to Site
+                    </Link>
+                </div>
+            </nav>
 
-                        <div className="space-y-2">
-                            <div className="flex justify-between items-center px-4">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Password</label>
-                                <Link href="/forgot-password" className="text-[10px] font-black uppercase tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors">
-                                    Forgot?
-                                </Link>
-                            </div>
-                            <div className="relative group">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors" size={18} />
-                                <input
-                                    required
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="••••••••"
-                                    className="w-full bg-white/[0.05] border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
-                                />
-                            </div>
-                        </div>
+            {/* Page */}
+            <div className="flex-1 relative flex items-center justify-center px-5 py-12">
+                <div className="grid-bg" />
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] pointer-events-none bg-[radial-gradient(circle,rgba(59,98,255,0.18),transparent_70%)]" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] pointer-events-none bg-[radial-gradient(circle,rgba(196,242,74,0.08),transparent_70%)]" />
 
-                        <button
-                            disabled={loading}
-                            type="submit"
-                            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-2xl py-4 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl shadow-indigo-900/40 relative overflow-hidden group"
-                        >
-                            {loading ? (
-                                <Loader2 className="animate-spin" size={18} />
-                            ) : (
-                                <>
-                                    Establish Secure Connection
-                                    <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
-                                </>
+                <div className="relative z-[2] w-full max-w-[440px]">
+                    {/* Head */}
+                    <div className="text-center mb-8">
+                        <span className="lp-mark w-14 h-14 text-[20px] !bg-lime !text-bg mx-auto mb-4">LP</span>
+                        <h1 className="text-[28px] font-black uppercase italic tracking-[-0.03em]">Command Center</h1>
+                        <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-mut mt-1.5">Secure Access Portal</p>
+                    </div>
+
+                    {/* Card */}
+                    <div className="corner-brackets bg-panel border border-line p-8">
+                        <form onSubmit={handleLogin}>
+                            {error && (
+                                <div className="bg-org/10 border border-org/30 px-3.5 py-3 flex items-center gap-2.5 mb-4">
+                                    <AlertCircle size={16} className="text-org flex-none" />
+                                    <span className="font-mono text-[11px] text-org">{error}</span>
+                                </div>
                             )}
-                        </button>
-                    </form>
 
-                    <div className="mt-8 pt-8 border-t border-white/5 text-center">
-                        <p className="text-slate-500 text-xs font-bold">
-                            Don&apos;t have an account?{' '}
-                            <Link href="/signup" className="text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-widest font-black text-[10px]">
-                                Apply for Access
-                            </Link>
-                        </p>
+                            <div className="mb-4">
+                                <label className="block font-mono text-[10px] tracking-[0.1em] uppercase text-mut mb-1.5">Email Address</label>
+                                <div className="relative">
+                                    <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-mut2 pointer-events-none" />
+                                    <input
+                                        required
+                                        type="email"
+                                        autoComplete="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="name@example.com"
+                                        className="lp-input py-[13px] pl-10 pr-3 text-[14px]"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="mb-4">
+                                <div className="flex justify-between items-center mb-1.5">
+                                    <label className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut">Password</label>
+                                    <Link href="/forgot-password" className="font-mono text-[10px] font-bold tracking-[0.06em] text-blue2 hover:text-lime transition-colors">
+                                        Forgot?
+                                    </Link>
+                                </div>
+                                <div className="relative">
+                                    <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-mut2 pointer-events-none" />
+                                    <input
+                                        required
+                                        type="password"
+                                        autoComplete="current-password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="••••••••"
+                                        className="lp-input py-[13px] pl-10 pr-3 text-[14px]"
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                disabled={loading}
+                                type="submit"
+                                className={`${btnBase} w-full bg-lime text-bg hover:bg-[#d2ff56] disabled:opacity-50`}
+                            >
+                                {loading ? (
+                                    <Loader2 className="animate-spin" size={16} />
+                                ) : (
+                                    <>
+                                        <ShieldCheck size={16} />
+                                        Establish Secure Connection
+                                    </>
+                                )}
+                            </button>
+                        </form>
+
+                        <div className="h-px bg-line my-[22px]" />
+
+                        <div className="text-center">
+                            <p className="font-mono text-[11px] text-mut2">
+                                Don&apos;t have an account?{' '}
+                                <Link href="/signup" className="text-blue2 font-bold hover:text-lime transition-colors">
+                                    Apply for Access
+                                </Link>
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                {/* Security Footer */}
-                <div className="mt-8 flex items-center justify-center gap-2 opacity-30 grayscale hover:grayscale-0 transition-all cursor-default">
-                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                    <span className="text-[8px] font-black uppercase tracking-widest text-white">SSL Encrypted Pipeline</span>
-                    <div className="w-1 h-1 rounded-full bg-emerald-500" />
+                    {/* SSL line */}
+                    <div className="flex items-center justify-center gap-2 mt-6 opacity-30">
+                        <div className="w-[5px] h-[5px] rounded-full bg-lime" />
+                        <span className="font-mono text-[9px] tracking-[0.12em] uppercase text-ink">SSL Encrypted · Supabase Auth · Powered by Command Center™</span>
+                        <div className="w-[5px] h-[5px] rounded-full bg-lime" />
+                    </div>
                 </div>
             </div>
         </div>
