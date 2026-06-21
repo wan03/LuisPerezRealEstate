@@ -82,14 +82,21 @@ export default function ClientDashboard() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+            <div className="min-h-screen bg-bg flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="animate-spin text-indigo-600" size={48} />
-                    <p className="text-slate-400 font-black uppercase tracking-widest text-xs">Loading Dashboard...</p>
+                    <div className="lp-spinner w-12 h-12" />
+                    <p className="text-mut font-mono uppercase tracking-[0.1em] text-[10px]">Loading Dashboard...</p>
                 </div>
             </div>
         );
     }
+
+    const navItems = [
+        { key: 'home' as const, icon: Home, label: 'Home' },
+        { key: 'chat' as const, icon: MessageSquare, label: 'Chat' },
+        { key: 'documents' as const, icon: FileText, label: 'Documents' },
+        { key: 'updates' as const, icon: Bell, label: 'Updates' },
+    ];
 
     const renderContent = () => {
         switch (activeTab) {
@@ -97,50 +104,71 @@ export default function ClientDashboard() {
                 return (
                     <div className="h-[calc(100vh-theme(spacing.24))] md:h-[calc(100vh-theme(spacing.12))] flex flex-col">
                         <div className="mb-6">
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Triad Chat</h2>
-                            <p className="text-slate-500 font-medium">Direct line to your Agent and Loan Officer.</p>
+                            <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">02 / Communication</p>
+                            <h2 className="text-2xl font-black uppercase tracking-[-0.03em] mt-1">Triad <span className="text-lime">Chat</span></h2>
+                            <p className="text-mut font-mono text-[11px] mt-1.5">Direct line to your Agent and Loan Officer.</p>
                         </div>
-                        <div className="flex-1 bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+                        <div className="flex-1 bg-panel border border-line overflow-hidden">
                             <TriadChat userRole="client" roomId={roomId || undefined} />
                         </div>
                     </div>
                 );
             case 'documents':
-                return <DocumentVault />;
+                return (
+                    <div>
+                        <div className="mb-6">
+                            <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">03 / Documents</p>
+                            <h2 className="text-2xl font-black uppercase tracking-[-0.03em] mt-1">Document <span className="text-lime">Vault</span></h2>
+                            <p className="text-mut font-mono text-[11px] mt-1.5">All transaction documents in one secure place.</p>
+                        </div>
+                        <DocumentVault />
+                    </div>
+                );
             case 'updates':
                 return (
                     <div className="max-w-3xl mx-auto">
+                        <div className="mb-6">
+                            <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">04 / Updates</p>
+                            <h2 className="text-2xl font-black uppercase tracking-[-0.03em] mt-1">Activity <span className="text-lime">Feed</span></h2>
+                            <p className="text-mut font-mono text-[11px] mt-1.5">All updates on your transaction.</p>
+                        </div>
                         <ActivityFeed clientId={clientId || ''} />
                     </div>
                 );
             case 'home':
             default:
                 return (
-                    <div className="grid grid-cols-1 xl:grid-cols-3 gap-12 items-start text-black">
+                    <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
                         {/* Left/Middle Col: Roadmap & Docs */}
-                        <div className="xl:col-span-2 space-y-12 text-black">
+                        <div className="xl:col-span-2 space-y-6">
                             <CommandCenter role="client" clientId={clientId || undefined} />
                             {/* We keep the simple upload here for quick access, but link to Vault */}
                             <DocumentUpload />
                         </div>
 
                         {/* Right Col: Chat Preview */}
-                        <div className="space-y-8 sticky top-28">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter italic font-black">Triad Live Chat</h3>
-                            </div>
-                            <div className="h-[500px] flex flex-col bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
-                                <TriadChat userRole="client" roomId={roomId || undefined} />
+                        <div className="space-y-6 xl:sticky xl:top-24">
+                            <div className="bg-panel border border-line flex flex-col">
+                                <div className="px-5 py-4 border-b border-line flex items-center justify-between">
+                                    <h3 className="text-sm font-black uppercase tracking-[-0.01em]">Triad Live Chat</h3>
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="lp-live-dot" />
+                                        <span className="font-mono text-[9px] tracking-[0.08em] text-lime">LIVE</span>
+                                    </div>
+                                </div>
+                                <div className="h-[460px] flex flex-col overflow-hidden">
+                                    <TriadChat userRole="client" roomId={roomId || undefined} />
+                                </div>
                             </div>
 
                             {/* Quick Stats/Alert */}
-                            <div className="bg-indigo-600 rounded-3xl p-6 text-white shadow-xl shadow-indigo-100">
-                                <h4 className="font-black text-lg mb-2 italic">Transaction Updates</h4>
-                                <p className="text-indigo-100 text-sm font-medium mb-4">Check your roadmap above for the latest status on your transaction.</p>
+                            <div className="bg-panel border border-line p-6 corner-brackets">
+                                <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2 mb-2">Status</p>
+                                <h4 className="font-black uppercase tracking-[-0.02em] text-lg mb-2">Transaction Updates</h4>
+                                <p className="text-mut text-[13px] mb-4">Check your roadmap above for the latest status on your transaction.</p>
                                 <button
                                     onClick={() => setActiveTab('updates')}
-                                    className="w-full bg-white/20 hover:bg-white/30 transition-colors py-3 rounded-xl font-black text-xs uppercase tracking-widest border border-white/20"
+                                    className="w-full inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2"
                                 >
                                     View Activity Feed
                                 </button>
@@ -152,70 +180,57 @@ export default function ClientDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
+        <div className="min-h-screen bg-bg text-ink flex flex-col md:flex-row">
             {/* Sidebar Navigation */}
-            <div className="w-full md:w-20 bg-slate-900 md:h-screen relative md:sticky md:top-0 p-4 flex flex-row md:flex-col items-center gap-8 z-50 shadow-2xl shadow-slate-900/20">
+            <div className="w-full md:w-[72px] bg-bg2 border-b md:border-b-0 md:border-r border-line md:h-screen relative md:sticky md:top-0 py-3 md:py-4 flex flex-row md:flex-col items-center gap-2 md:gap-2 z-50">
+                <span className="lp-mark hidden md:grid w-9 h-9 text-[12px] mb-4">LP</span>
+                {navItems.map(({ key, icon: Icon, label }) => {
+                    const active = activeTab === key;
+                    return (
+                        <button
+                            key={key}
+                            onClick={() => setActiveTab(key)}
+                            className={`relative w-11 h-11 grid place-items-center transition-colors ${active ? 'text-ink bg-panel' : 'text-mut2 hover:text-mut hover:bg-panel'}`}
+                            title={label}
+                        >
+                            {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-0.5 bg-blue hidden md:block" />}
+                            <Icon size={20} />
+                        </button>
+                    );
+                })}
                 <button
-                    onClick={() => setActiveTab('home')}
-                    className={`p-3 rounded-2xl transition-all ${activeTab === 'home' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-white hover:bg-slate-800'}`}
-                    title="Home"
-                >
-                    <Home size={24} />
-                </button>
-                <button
-                    onClick={() => setActiveTab('chat')}
-                    className={`p-3 rounded-2xl transition-all ${activeTab === 'chat' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-white hover:bg-slate-800'}`}
-                    title="Chat"
-                >
-                    <MessageSquare size={24} />
-                </button>
-                <button
-                    onClick={() => setActiveTab('documents')}
-                    className={`p-3 rounded-2xl transition-all ${activeTab === 'documents' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-white hover:bg-slate-800'}`}
-                    title="Documents"
-                >
-                    <FileText size={24} />
-                </button>
-                <button
-                    onClick={() => setActiveTab('updates')}
-                    className={`md:mt-auto p-3 rounded-2xl transition-all ${activeTab === 'updates' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-white hover:bg-slate-800'}`}
-                    title="Updates"
-                >
-                    <Bell size={24} />
-                </button>
-                <div
                     onClick={async () => {
                         await supabase.auth.signOut();
                         window.location.href = '/login';
                     }}
-                    className="text-slate-500 hover:text-red-400 transition-colors cursor-pointer mb-2 p-3"
+                    className="md:mt-auto w-11 h-11 grid place-items-center text-mut2 hover:text-org transition-colors"
                     title="Sign Out"
                 >
-                    <LogOut size={24} />
-                </div>
+                    <LogOut size={20} />
+                </button>
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 p-4 md:p-8 lg:p-12 overflow-x-hidden">
-                {/* Header (Always visible unless in fullscreen chat maybe? No, keep it for context) */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+            <div className="flex-1 overflow-x-hidden flex flex-col">
+                {/* Top Bar */}
+                <div className="bg-bg2 border-b border-line px-7 h-16 flex items-center justify-between gap-4 sticky top-0 z-40">
                     <div>
-                        <h1 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight">{firstName}&apos;s Command Center</h1>
-                        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs mt-2">Property: {propertyName}</p>
+                        <h2 className="text-lg md:text-xl font-black uppercase tracking-[-0.03em] leading-none">{firstName}&apos;s Command Center</h2>
+                        <p className="font-mono text-[10px] text-mut tracking-[0.08em] mt-1">Property: {propertyName}</p>
                     </div>
-                    <div className="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-200 shadow-sm">
-                        <div className="flex -space-x-2">
-                            <div className="w-10 h-10 rounded-full border-2 border-white bg-indigo-500 flex items-center justify-center text-white text-xs font-bold">{initials}</div>
-                        </div>
-                        <div className="pr-4 hidden md:block">
-                            <p className="text-[10px] font-black text-slate-400 uppercase leading-none mb-1">Your Triad</p>
-                            <p className="text-xs font-bold text-slate-800">{roomId ? 'Connected' : 'Offline'}</p>
+                    <div className="flex items-center gap-2.5 bg-panel border border-line px-3.5 py-2">
+                        <div className="w-[30px] h-[30px] rounded-full bg-blue grid place-items-center text-white font-mono text-[10px] font-bold">{initials}</div>
+                        <div className="hidden md:block">
+                            <p className="font-mono text-[9px] tracking-[0.1em] uppercase text-mut2 leading-none">Your Triad</p>
+                            <p className="font-mono text-[10px] font-bold text-ink mt-1 flex items-center gap-1.5">
+                                {roomId && <span className="lp-live-dot" />}{roomId ? 'Connected' : 'Offline'}
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 {/* Tab Content */}
-                <div className="animate-in fade-in duration-300">
+                <div className="p-7 flex-1">
                     {renderContent()}
                 </div>
             </div>

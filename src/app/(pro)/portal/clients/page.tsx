@@ -103,64 +103,97 @@ export default function ClientsPage() {
         }
     }, [selectedClient, resolveRoom]);
 
+    const activeCount = clients.length;
+    const avgProgress = clients.length
+        ? Math.round(clients.reduce((sum, c) => sum + (c.progress || 0), 0) / clients.length)
+        : 0;
+    const closingCount = clients.filter(c => c.status === 'Clear to Close' || c.status === 'Closed').length;
+
     return (
-        <div>
+        <div className="flex-1 flex flex-col bg-bg text-ink">
             {/* Header with New Transaction Button */}
-            <header className="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center sticky top-0 z-40">
-                <div className="relative w-96">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+            <header className="bg-bg2 border-b border-line px-7 h-[60px] flex justify-between items-center gap-4 sticky top-0 z-40">
+                <div className="flex items-center gap-2 bg-panel border border-line px-3.5 py-2 flex-1 max-w-[320px]">
+                    <Search className="text-mut2 flex-none" size={14} />
                     <input
                         type="text"
                         placeholder="Search clients or properties..."
-                        className="w-full bg-slate-50 border-none rounded-xl py-2 pl-10 pr-4 text-sm font-medium focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent border-none outline-none text-[13px] text-ink placeholder:text-mut2"
                     />
                 </div>
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => setIsNewTxModalOpen(true)}
-                        className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-2 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 active:scale-95"
+                        className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-lime text-bg hover:bg-[#d2ff56]"
                     >
                         <Plus size={16} /> New Transaction
                     </button>
                 </div>
             </header>
 
-            <div className="p-8">
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+            <div className="p-7">
+                {/* Page header */}
+                <div className="flex items-end justify-between gap-4 mb-6">
+                    <div>
+                        <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2">01 / Clients</p>
+                        <h1 className="text-2xl font-black uppercase tracking-[-0.03em] leading-none mt-1">
+                            Active <span className="text-lime">Pipeline</span>
+                        </h1>
+                        <p className="font-mono text-[11px] text-mut mt-1.5">Highlands County, FL</p>
+                    </div>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-panel border border-line p-5 corner-brackets">
+                        <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-blue2">{activeCount}</div>
+                        <div className="font-mono text-[10px] tracking-[0.08em] uppercase text-mut mt-1.5">Active Deals</div>
+                    </div>
+                    <div className="bg-panel border border-line p-5">
+                        <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-lime">{avgProgress}%</div>
+                        <div className="font-mono text-[10px] tracking-[0.08em] uppercase text-mut mt-1.5">Avg Progress</div>
+                    </div>
+                    <div className="bg-panel border border-line p-5">
+                        <div className="text-[40px] font-black tracking-[-0.04em] leading-none text-org">{closingCount}</div>
+                        <div className="font-mono text-[10px] tracking-[0.08em] uppercase text-mut mt-1.5">Near / At Close</div>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
                     {/* Client List Section */}
-                    <div className="xl:col-span-4 space-y-6 text-black">
+                    <div className="xl:col-span-4 space-y-6">
                         <div className="flex items-center justify-between mb-2">
-                            <h2 className="text-xl font-black uppercase tracking-tighter italic text-black">Active Pipeline</h2>
-                            <Filter className="text-slate-400" size={18} />
+                            <h2 className="text-sm font-black uppercase tracking-[-0.01em]">Active Pipeline</h2>
+                            <Filter className="text-mut2" size={18} />
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             {loading ? (
-                                <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
-                                    <Loader2 size={32} className="text-indigo-600 animate-spin mb-4" />
-                                    <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Loading Pipeline...</p>
+                                <div className="flex flex-col items-center justify-center py-20 bg-panel border border-dashed border-line">
+                                    <div className="lp-spinner w-8 h-8 mb-4" />
+                                    <p className="text-mut font-mono uppercase text-[10px] tracking-[0.1em]">Loading Pipeline...</p>
                                 </div>
                             ) : clients.length === 0 ? (
-                                <div className="p-8 text-center bg-white rounded-3xl border border-slate-100">
-                                    <p className="text-slate-500 font-medium italic">No active clients found.</p>
+                                <div className="p-8 text-center bg-panel border border-line">
+                                    <p className="text-mut font-mono text-[11px]">No active clients found.</p>
                                 </div>
                             ) : (
                                 clients.map((client) => (
                                     <div
                                         key={client.id}
                                         onClick={() => setSelectedClient(client)}
-                                        className={`p-5 rounded-2xl border transition-all cursor-pointer ${selectedClient?.id === client.id
-                                            ? 'bg-white border-indigo-600 shadow-lg shadow-indigo-100'
-                                            : 'bg-white border-slate-100 hover:border-slate-200'
+                                        className={`p-5 border transition-colors cursor-pointer ${selectedClient?.id === client.id
+                                            ? 'bg-panel border-blue'
+                                            : 'bg-panel border-line hover:border-blue2'
                                             }`}
                                     >
-                                        <div className="flex justify-between items-start mb-4">
-                                            <h4 className="font-black text-slate-900">{client.full_name}</h4>
-                                            <span className="text-[10px] font-black uppercase bg-slate-100 px-2 py-1 rounded-md text-slate-500">{client.status}</span>
+                                        <div className="flex justify-between items-start mb-4 gap-3">
+                                            <h4 className="font-extrabold uppercase tracking-[-0.01em] text-ink">{client.full_name}</h4>
+                                            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.06em] bg-blue/10 px-2 py-1 text-blue2 whitespace-nowrap">{client.status}</span>
                                         </div>
-                                        <p className="text-xs font-bold text-slate-400 mb-4">{client.property}</p>
-                                        <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                                            <div className="bg-indigo-600 h-full rounded-full" style={{ width: `${client.progress}%` }} />
+                                        <p className="font-mono text-[10px] text-mut mb-4">{client.property}</p>
+                                        <div className="lp-track w-full">
+                                            <i className="bg-lime" style={{ width: `${client.progress}%` }} />
                                         </div>
                                     </div>
                                 ))
@@ -169,30 +202,31 @@ export default function ClientsPage() {
                     </div>
 
                     {/* Management View */}
-                    <div className="xl:col-span-8 space-y-8 text-black">
+                    <div className="xl:col-span-8 space-y-6">
                         {selectedClient ? (
                             <>
-                                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex justify-between items-center text-black">
+                                <div className="bg-panel p-7 border border-line flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                                     <div>
-                                        <h2 className="text-2xl font-black text-slate-900 tracking-tight">Managing: {selectedClient.full_name}</h2>
-                                        <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-1 italic">Professional Command Control</p>
+                                        <p className="font-mono text-[10px] tracking-[0.1em] uppercase text-mut2 mb-1">Managing</p>
+                                        <h2 className="text-2xl font-black uppercase tracking-[-0.03em] leading-none">{selectedClient.full_name}</h2>
+                                        <p className="font-mono text-[10px] text-mut mt-1.5">Professional Command Control</p>
                                     </div>
                                     <div className="flex gap-2">
-                                        <button className="bg-slate-900 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg">Archive</button>
-                                        <button className="bg-white border-2 border-slate-900 text-slate-900 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest">Share Hub</button>
+                                        <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-panel2 text-ink hover:bg-[#222b3a]">Archive</button>
+                                        <button className="inline-flex items-center justify-center gap-2 font-extrabold text-[13px] tracking-[0.025em] uppercase px-5 py-3 transition-colors active:translate-y-px bg-blue text-white hover:bg-blue2">Share Hub</button>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 text-black">
+                                <div className="grid grid-cols-1 gap-6">
                                     <CommandCenter role="agent" clientId={selectedClient.id} />
-                                    <div className="bg-white p-2 rounded-3xl border border-slate-200">
+                                    <div className="bg-panel p-2 border border-line">
                                         <TriadChat userRole="agent" roomId={roomId || undefined} />
                                     </div>
                                 </div>
                             </>
                         ) : (
-                            <div className="h-96 flex items-center justify-center border-4 border-dashed border-slate-200 rounded-3xl">
-                                <p className="text-slate-400 font-black uppercase italic">Select a client to manage</p>
+                            <div className="h-96 flex items-center justify-center border border-dashed border-line bg-panel">
+                                <p className="text-mut font-mono uppercase text-[11px] tracking-[0.1em]">Select a client to manage</p>
                             </div>
                         )}
                     </div>
