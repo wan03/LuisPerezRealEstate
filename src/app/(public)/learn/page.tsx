@@ -19,7 +19,7 @@ export default async function EducationHub() {
     const articles = await getArticles();
 
     return (
-        <div className="bg-slate-50 min-h-screen">
+        <div className="bg-bg min-h-screen text-ink">
             <ArticleGrid articles={articles} />
         </div>
     );
