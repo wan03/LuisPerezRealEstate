@@ -25,7 +25,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "Luis Perez Real Estate | Lakeland & Tampa Bay FL",
-  description: "High-performance real estate for the I-4 corridor — Lakeland & Tampa Bay, FL. TikTok-style walkthroughs, precise PITI+ math, and a completely transparent transaction roadmap.",
+  description: "Your next Lakeland or Tampa Bay home starts here — cinematic walkthroughs, straight-talking PITI+ math, and a transparent path from first tour to closing day.",
   openGraph: {
     title: "Luis Perez Real Estate | Lakeland & Tampa Bay FL",
     description: "Own the I-4 corridor. High-performance real estate with transparent PITI+ calculators and a bilingual team.",
